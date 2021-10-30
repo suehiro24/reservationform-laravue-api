@@ -7,12 +7,36 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "lint": "eslint --fix"
+    },
+    "dependencies": {
+        "vue": "^3.2.20",
+        "vue-router": "^4.0.12",
+        "vuex": "^4.0.2"
     },
     "devDependencies": {
         "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
+        "eslint": "^8.1.0",
+        "eslint-plugin-import": "^2.25.2",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^4.3.1",
+        "eslint-plugin-standard": "^4.1.0",
+        "eslint-plugin-vue": "^8.0.3",
+        "laravel-mix": "^6.0.37",
+        "lint-staged": "^11.2.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "vue-jest": "^5.0.0-0",
+        "vue-loader": "^16.8.2"
+    },
+    "gitHooks": {
+        "pre-commit": "lint-staged"
+    },
+    "lint-staged": {
+        "*.{js,jsx,vue}": [
+            "npm run lint",
+            "git add"
+        ]
     }
 }
