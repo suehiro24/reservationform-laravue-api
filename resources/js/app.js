@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from '@/components/App.vue'
 import router from '@/router'
 // import store from '@/store'
-// import vuetify from '@/vuetify'
+import vuetify from '@/vuetify'
 
 // import VueCompositionAPI from '@vue/composition-api'
 // Vue.use(VueCompositionAPI)
@@ -14,6 +14,6 @@ import router from '@/router'
 new Vue({
   router,
   // store,
-  // vuetify,
+  vuetify,
   render: h => h(App),
 }).$mount('#app')
