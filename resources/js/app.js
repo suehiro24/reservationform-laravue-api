@@ -1,10 +1,19 @@
 require('@/bootstrap');
 
-import { createApp } from 'vue'
+import Vue from 'vue'
 import App from '@/components/App.vue'
-import { router } from '@/router';
+import router from '@/router'
+// import store from '@/store'
+// import vuetify from '@/vuetify'
 
-const app = createApp(App)
-app.use(router)
+// import VueCompositionAPI from '@vue/composition-api'
+// Vue.use(VueCompositionAPI)
 
-app.mount('#app')
+// Vue.config.productionTip = false
+
+new Vue({
+  router,
+  // store,
+  // vuetify,
+  render: h => h(App),
+}).$mount('#app')
