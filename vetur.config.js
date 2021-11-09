@@ -45,5 +45,5 @@ module.exports = {
     //   //   './src/components/**/*.vue'
     //   // ]
     // }
-  ]
+  ],
 }

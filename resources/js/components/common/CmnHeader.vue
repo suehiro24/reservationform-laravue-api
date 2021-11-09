@@ -10,7 +10,7 @@ export default {
   name: 'CmnHeader',
   components: {
   },
-};
+}
 </script>
 
 <style>

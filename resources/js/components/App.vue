@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import CmnHeader from "@/components/common/CmnHeader.vue";
+import CmnHeader from '@/components/common/CmnHeader.vue'
 
 export default {
   name: 'App',
   components: {
     CmnHeader: CmnHeader,
   },
-};
+}
 </script>

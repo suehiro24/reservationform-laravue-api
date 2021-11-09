@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Reservation from "@/components/reservation/Reservation.vue";
-import Management from "@/components/management/Management.vue";
+import Reservation from '@/components/reservation/Reservation.vue'
+import Management from '@/components/management/Management.vue'
 
 Vue.use(VueRouter)
 
