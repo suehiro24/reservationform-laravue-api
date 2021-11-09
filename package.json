@@ -8,7 +8,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "lint": "eslint --fix"
+        "lint": "eslint --fix \"resources/js/**\""
     },
     "dependencies": {
         "axios": "^0.21.1",
