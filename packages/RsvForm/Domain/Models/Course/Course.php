@@ -41,11 +41,6 @@ final class Course
      */
     private bool $isFinished;
 
-    /**
-     * @var bool
-     */
-    private bool $isDeleted;
-
     private function __construct(
         ?int $id = null,
         string $name,
@@ -54,7 +49,6 @@ final class Course
         ?string $location = null,
         ?string $description = null,
         bool $isFinished,
-        bool $isDeleted
     ) {
         // コースID
         $this->id = $id;
@@ -90,8 +84,6 @@ final class Course
         $this->description = $description;
 
         $this->isFinished = $isFinished;
-
-        $this->isDeleted = $isDeleted;
     }
 
     public static function create(
@@ -114,16 +106,15 @@ final class Course
         ?string $location = null,
         ?string $description = null,
         bool $isFinished,
-        bool $isDeleted,
     ): Course
     {
-        return new Course($id, $name, $price, $capacity, $location, $description, $isFinished, $isDeleted);
+        return new Course($id, $name, $price, $capacity, $location, $description, $isFinished );
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -206,22 +197,6 @@ final class Course
     public function setDescription(?string $description): void
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsDeleted(): bool
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param bool $isDeleted
-     */
-    public function setIsDeleted(bool $isDeleted): void
-    {
-        $this->isDeleted = $isDeleted;
     }
 
     /**
