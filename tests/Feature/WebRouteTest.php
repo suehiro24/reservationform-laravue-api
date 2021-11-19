@@ -53,7 +53,6 @@ class WebRouteTest extends TestCase
     {
         $response = $this->get('');
 
-        print($response->path);
         $response->assertStatus(200);
     }
 }
