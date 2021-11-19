@@ -4,6 +4,7 @@
 /public/css
 /public/js
 /public/mix-manifest.json
+/database/migrations_defaults
 /storage/*.key
 /vendor
 .env
