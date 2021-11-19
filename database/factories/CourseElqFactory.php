@@ -14,11 +14,11 @@ class CourseElqFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'test course',
-            'price' => 100,
-            'capacity' => 10,
-            'location' => 'test location',
-            'description' => 'test description',
+            'name' => $this->faker->text(10),
+            'price' => $this->faker->randomNumber(4),
+            'capacity' => $this->faker->randomNumber(1),
+            'location' => $this->faker->text(100),
+            'description' => $this->faker->text(100),
             'is_finished' => false,
             'is_deleted' => false
         ];

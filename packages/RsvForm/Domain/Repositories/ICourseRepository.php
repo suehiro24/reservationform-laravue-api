@@ -2,6 +2,7 @@
 
 namespace RsvForm\Domain\Repositories;
 
+use Illuminate\Support\Collection;
 use RsvForm\Domain\Models\Course\Course;
 
 interface ICourseRepository
@@ -11,7 +12,7 @@ interface ICourseRepository
      *
      * @return Course[]
      */
-    public static function getAll(): array;
+    public static function getAll(): Collection;
 
     /**
      * Find specific Course entity.
@@ -21,9 +22,16 @@ interface ICourseRepository
     public static function find(int $id): ?Course;
 
     /**
-     * Persitst(update or save) Course entity.
+     * Persitst(insert or update) Course entity.
      *
      * @return Course
      */
     public static function persist(Course $course): Course;
+
+    /**
+     * Delete Course entity.
+     *
+     * @return bool
+     */
+    public static function delete(int $id): bool;
 }

@@ -3,6 +3,7 @@
 namespace RsvForm\Infrastructure\Repositories;
 
 use App\Models\CourseElq;
+use Illuminate\Support\Collection;
 use RsvForm\Domain\Models\Course\Course;
 use RsvForm\Domain\Repositories\ICourseRepository;
 
@@ -13,7 +14,7 @@ class CourseRepository implements ICourseRepository
      *
      * @return Course[]
      */
-    public static function getAll(): array
+    public static function getAll(): Collection
     {
         $results = [];
 
@@ -29,8 +30,7 @@ class CourseRepository implements ICourseRepository
                 $courseElq->capacity,
                 $courseElq->location,
                 $courseElq->description,
-                $courseElq->is_finished,
-                $courseElq->is_deleted
+                $courseElq->is_finished
             );
         });
 
@@ -49,7 +49,7 @@ class CourseRepository implements ICourseRepository
             ->where('id', $id)
             ->first();
 
-        if(is_null($courseElq)) return null;
+        if (is_null($courseElq)) return null;
 
         return Course::reconscruct(
             $courseElq->id,
@@ -64,7 +64,7 @@ class CourseRepository implements ICourseRepository
     }
 
     /**
-     * Persitst(update or save) Course entity.
+     * Persitst(insert or update) Course entity.
      *
      * @return Course
      */
@@ -79,7 +79,6 @@ class CourseRepository implements ICourseRepository
         $courseElq->location = $course->getLocation();
         $courseElq->description = $course->getDescription();
         $courseElq->is_finished = $course->getIsFinished();
-        $courseElq->is_deleted = $course->getIsDeleted();
 
         $courseElq->save();
 
@@ -91,7 +90,18 @@ class CourseRepository implements ICourseRepository
             $courseElq->location,
             $courseElq->description,
             $courseElq->is_finished,
-            $courseElq->is_deleted
         );
+    }
+
+    /**
+     * Persitst(insert or update) Course entity.
+     *
+     * @return boolean
+     */
+    public static function delete(int $id): bool
+    {
+        $courseElq = CourseElq::find($id);
+        $courseElq->is_deleted = true;
+        return $courseElq->save();
     }
 }
