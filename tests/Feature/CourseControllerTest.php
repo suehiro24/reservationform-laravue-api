@@ -46,4 +46,27 @@ class CourseControllerTest extends TestCase
         $response = $this->post('api/course/new', $data);
         $this->assertEquals('test course', $response['course']['name']);
     }
+
+    /**
+     * コース更新テスト
+     *
+     * @return void
+     */
+    public function testUpdate()
+    {
+        $courseElq = CourseElq::factory()->create();
+
+        $data = [
+            'id' => $courseElq->id,
+            'name' => 'test course',
+            'price' => $courseElq->price,
+            'location' => $courseElq->location,
+            'capacity' => $courseElq->capacity,
+            'description' => $courseElq->description,
+            'isFinished' => $courseElq->is_finished,
+        ];
+        $response = $this->post('api/course/update', $data);
+        $courseElqUpdated = CourseElq::find($courseElq->id);
+        $this->assertEquals($response['course']['name'], $courseElqUpdated->name);
+    }
 }

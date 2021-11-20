@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use RsvForm\Usecase\Management\CourseCreate;
 use RsvForm\Usecase\Management\CourseIndex;
+use RsvForm\Usecase\Management\CourseUpdate;
 
 class CourseController
 {
@@ -56,22 +57,19 @@ class CourseController
         return $this->responder->withEntity($course, Response::HTTP_CREATED);
     }
 
-    //     return $this->responder->withEntity($todoItem);
-    // }
+    public function update(Request $request, CourseUpdate $usecase): JsonResponse
+    {
+        $posts = $request->input();
 
-    // public function add(AddTodoItemRequest $request, AddTodoItem $usecase): JsonResponse
-    // {
-    //     $inputs = $request->only(['title']);
+        try {
+            $course = $usecase->__invoke($posts);
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-    //     try {
-    //         $todoItem = $usecase->__invoke($inputs);
-    //     } catch (PersistenceException $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e);
-    //     }
-
-    //     return $this->responder->withEntity($todoItem, Response::HTTP_CREATED);
-    // }
+        return $this->responder->withEntity($course, Response::HTTP_OK);
+    }
 
     // public function complete(int $id, CompleteTodoItem $usecase): JsonResponse
     // {
