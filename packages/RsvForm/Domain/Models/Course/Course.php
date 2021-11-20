@@ -92,10 +92,9 @@ final class Course
         int $capacity,
         ?string $location = null,
         ?string $description = null,
-        bool $isFinished,
     ): Course
     {
-        return new Course(null, $name, $price, $capacity, $location, $description, $isFinished, false);
+        return new Course(null, $name, $price, $capacity, $location, $description, false, false);
     }
 
     public static function reconscruct(
@@ -108,7 +107,7 @@ final class Course
         bool $isFinished,
     ): Course
     {
-        return new Course($id, $name, $price, $capacity, $location, $description, $isFinished );
+        return new Course($id, $name, $price, $capacity, $location, $description, $isFinished);
     }
 
     /**
