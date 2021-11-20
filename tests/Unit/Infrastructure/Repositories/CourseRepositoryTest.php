@@ -6,6 +6,7 @@ use App\Models\CourseElq;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use RsvForm\Domain\Models\Course\Course;
+use RsvForm\Domain\Repositories\ICourseRepository;
 use RsvForm\Infrastructure\Repositories\CourseRepository;
 use Tests\TestCase;
 
@@ -23,7 +24,7 @@ class CourseRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->repository = app(CourseRepository::class);
+        $this->repository = app(ICourseRepository::class);
     }
 
     public function tearDown(): void
