@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Responder\CourseResponder;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use RsvForm\Usecase\Management\CourseCreate;
 use RsvForm\Usecase\Management\CourseIndex;
 
 class CourseController
@@ -34,18 +38,23 @@ class CourseController
     }
 
     /**
-     * 特定コースの取得
-     * @param int $id
-     * @param ShowTodoItem $usecase
+     * コースの新規作成
+     * @param Request $request
+     * @param CourseCreate $usecase
      * @return JsonResponse
      */
-    // public function show(int $id, CourseShow $usecase): JsonResponse
-    // {
-    //     try {
-    //         $todoItem = $usecase->__invoke(TodoItemId::of($id));
-    //     } catch (EntityNotFoundException $e) {
-    //         return $this->responder->error($e, Response::HTTP_NOT_FOUND);
-    //     }
+    public function new(Request $request, CourseCreate $usecase): JsonResponse
+    {
+        $posts = $request->input();
+
+        try {
+            $course = $usecase->__invoke($posts);
+        } catch (Exception $e) {
+            return $this->responder->error($e, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->responder->withEntity($course, Response::HTTP_CREATED);
+    }
 
     //     return $this->responder->withEntity($todoItem);
     // }
