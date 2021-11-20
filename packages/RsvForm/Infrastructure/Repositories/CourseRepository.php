@@ -70,9 +70,13 @@ class CourseRepository implements ICourseRepository
      */
     public static function persist(Course $course): Course
     {
-        $courseElq = new CourseElq();
 
-        $courseElq->id = $course->getId();
+        if (is_null($course->getId())) {
+            $courseElq = new CourseElq();
+        } else {
+            $courseElq = CourseElq::find($course->getId());
+        }
+
         $courseElq->name = $course->getName();
         $courseElq->price = $course->getPrice();
         $courseElq->capacity = $course->getCapacity();
