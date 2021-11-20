@@ -26,6 +26,7 @@ class CourseControllerTest extends TestCase
     {
         CourseElq::factory()->count(5)->create();
         $response = $this->get('api/course/index');
+        $response->assertOK();
         $response->assertJsonCount(5, 'courses');
     }
 
@@ -44,6 +45,7 @@ class CourseControllerTest extends TestCase
             'description' => 'xxxxx',
         ];
         $response = $this->post('api/course/new', $data);
+        $response->assertCreated();
         $this->assertEquals('test course', $response['course']['name']);
     }
 
@@ -67,6 +69,24 @@ class CourseControllerTest extends TestCase
         ];
         $response = $this->post('api/course/update', $data);
         $courseElqUpdated = CourseElq::find($courseElq->id);
+        $response->assertOK();
         $this->assertEquals($response['course']['name'], $courseElqUpdated->name);
+    }
+
+    /**
+     * コース削除テスト
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $courseElq = CourseElq::factory()->create();
+        $data = [
+            'id' => $courseElq->id
+        ];
+        $response = $this->post('api/course/delete', $data);
+        $courseElqDeleted = CourseElq::find($courseElq->id);
+        $response->assertOk();
+        $this->assertTrue($courseElqDeleted->is_deleted);
     }
 }

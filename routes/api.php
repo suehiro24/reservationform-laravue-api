@@ -23,5 +23,5 @@ Route::prefix('course')->group(function () {
     Route::get('/index', [CourseController::class, 'index']);
     Route::post('/new', [CourseController::class, 'new']);
     Route::post('/update', [CourseController::class, 'update']);
-    // Route::post('/delete', [CourseController::class, 'delete']);
+    Route::post('/delete', [CourseController::class, 'delete']);
 });

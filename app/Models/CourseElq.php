@@ -13,4 +13,14 @@ class CourseElq extends Model
      * @var string
      */
     protected $table = 'courses';
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_finished' => 'boolean',
+        'is_deleted' => 'boolean',
+    ];
 }

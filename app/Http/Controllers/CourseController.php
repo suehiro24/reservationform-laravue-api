@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use RsvForm\Usecase\Management\CourseCreate;
+use RsvForm\Usecase\Management\CourseDelete;
 use RsvForm\Usecase\Management\CourseIndex;
 use RsvForm\Usecase\Management\CourseUpdate;
 
@@ -77,18 +78,23 @@ class CourseController
         return $this->responder->withEntity($course, Response::HTTP_OK);
     }
 
-    // public function complete(int $id, CompleteTodoItem $usecase): JsonResponse
-    // {
-    //     try {
-    //         $todoItem = $usecase->__invoke(TodoItemId::of($id));
-    //     } catch (EntityNotFoundException $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e, Response::HTTP_NOT_FOUND);
-    //     } catch (PersistenceException $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e);
-    //     }
+    public function delete(Request $request, CourseDelete $usecase): JsonResponse
+    {
+        $posts = $request->input();
 
-    //     return $this->responder->withEntity($todoItem);
-    // }
+        try {
+            $isDeleted = $usecase->__invoke($posts);
+            if (! $isDeleted) {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return new JsonResponse(
+            [],
+            Response::HTTP_OK
+        );
+    }
 }
