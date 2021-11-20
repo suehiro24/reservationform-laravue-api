@@ -4,9 +4,8 @@ namespace RsvForm\Usecase\Management;
 
 use Illuminate\Support\Collection;
 use RsvForm\Domain\Repositories\ICourseRepository;
-use RsvForm\Usecase\BaseUsecase;
 
-class CourseIndex implements BaseUsecase
+class CourseIndex
 {
      /**
      * @var ICourseRepository
