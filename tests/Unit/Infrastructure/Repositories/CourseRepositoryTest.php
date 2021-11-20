@@ -46,11 +46,29 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals('test course', $course->getName());
     }
 
-    public function testPersist(): void
+    public function testInsert(): void
     {
         $course = Course::create('name', 100, 10, 'location', 'description', false);
-        $course = $this->repository::persist($course);
-        $this->assertEquals('name', $course->getName());
+        $courseCreated = $this->repository::persist($course);
+        $courseElqCreated = CourseElq::find($courseCreated->getId());
+        $this->assertEquals($courseElqCreated->name, $course->getName());
+    }
+
+    public function testUpdate(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        $course = Course::reconscruct(
+            $courseElq->id,
+            'name updated',
+            $courseElq->price,
+            $courseElq->capacity,
+            $courseElq->location,
+            $courseElq->description,
+            $courseElq->is_finished,
+        );
+        $courseUpdated = $this->repository::persist($course);
+        $courseElqUpdated = CourseElq::find($courseElq->id);
+        $this->assertEquals($courseElqUpdated->name, $courseUpdated->getName());
     }
 
     public function testDelete(): void
