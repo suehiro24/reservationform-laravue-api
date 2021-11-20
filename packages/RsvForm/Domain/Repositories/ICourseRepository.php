@@ -29,7 +29,7 @@ interface ICourseRepository
     public static function persist(Course $course): Course;
 
     /**
-     * Delete Course entity.
+     * Set Delete Flag to Course entity.
      *
      * @return bool
      */
