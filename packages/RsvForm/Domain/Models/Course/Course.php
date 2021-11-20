@@ -92,12 +92,11 @@ final class Course
         int $capacity,
         ?string $location = null,
         ?string $description = null,
-    ): Course
-    {
+    ): Course {
         return new Course(null, $name, $price, $capacity, $location, $description, false, false);
     }
 
-    public static function reconscruct(
+    public static function reconstruct(
         int $id,
         string $name,
         ?int $price = null,
@@ -105,8 +104,7 @@ final class Course
         ?string $location = null,
         ?string $description = null,
         bool $isFinished,
-    ): Course
-    {
+    ): Course {
         return new Course($id, $name, $price, $capacity, $location, $description, $isFinished);
     }
 

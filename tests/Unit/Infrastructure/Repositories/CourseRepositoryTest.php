@@ -57,7 +57,7 @@ class CourseRepositoryTest extends TestCase
     public function testUpdate(): void
     {
         $courseElq = CourseElq::factory()->create();
-        $course = Course::reconscruct(
+        $course = Course::reconstruct(
             $courseElq->id,
             'name updated',
             $courseElq->price,

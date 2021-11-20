@@ -23,7 +23,7 @@ class CourseRepository implements ICourseRepository
             ->get();
 
         return $courseElqCollection->map(function ($courseElq) {
-            return Course::reconscruct(
+            return Course::reconstruct(
                 $courseElq->id,
                 $courseElq->name,
                 $courseElq->price,
@@ -51,7 +51,7 @@ class CourseRepository implements ICourseRepository
 
         if (is_null($courseElq)) return null;
 
-        return Course::reconscruct(
+        return Course::reconstruct(
             $courseElq->id,
             $courseElq->name,
             $courseElq->price,
@@ -86,7 +86,7 @@ class CourseRepository implements ICourseRepository
 
         $courseElq->save();
 
-        return Course::reconscruct(
+        return Course::reconstruct(
             $courseElq->id,
             $courseElq->name,
             $courseElq->price,
