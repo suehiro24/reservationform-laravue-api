@@ -4,10 +4,8 @@ namespace Tests\Unit\Infrastructure\Repositories;
 
 use App\Models\CourseElq;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use RsvForm\Domain\Models\Course\Course;
 use RsvForm\Domain\Repositories\ICourseRepository;
-use RsvForm\Infrastructure\Repositories\CourseRepository;
 use Tests\TestCase;
 
 class CourseRepositoryTest extends TestCase
