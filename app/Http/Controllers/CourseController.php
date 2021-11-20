@@ -34,7 +34,12 @@ class CourseController
      */
     public function index(CourseIndex $usecase): JsonResponse
     {
-        $courses = $usecase->__invoke();
+        try {
+            $courses = $usecase->__invoke();
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
         return $this->responder->withEntityCollection($courses);
     }
 
@@ -51,7 +56,8 @@ class CourseController
         try {
             $course = $usecase->__invoke($posts);
         } catch (Exception $e) {
-            return $this->responder->error($e, Response::HTTP_NOT_FOUND);
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $this->responder->withEntity($course, Response::HTTP_CREATED);
