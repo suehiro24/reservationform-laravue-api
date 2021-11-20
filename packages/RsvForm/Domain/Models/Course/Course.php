@@ -7,36 +7,43 @@ use Exception;
 final class Course
 {
     /**
+     * コースID
      * @var int|null
      */
     private ?int $id;
 
     /**
+     * コース名
      * @var string
      */
     private string $name;
 
     /**
+     * 料金
      * @var int|null
      */
     private ?int $price;
 
     /**
+     * 定員
      * @var int
      */
     private int $capacity;
 
     /**
+     * 会場
      * @var string|null
      */
     private ?string $location;
 
     /**
+     * 説明文
      * @var string|null
      */
     private ?string $description;
 
     /**
+     * 閉講フラグ
      * @var bool
      */
     private bool $isFinished;
@@ -60,13 +67,13 @@ final class Course
         $this->name = $name;
 
         // 料金
-        if (mb_strlen($price) < 0) {
+        if ($price < 0) {
             throw new Exception('料金は0以上の数値を入力してください');
         }
         $this->price = $price;
 
         // 定員
-        if (mb_strlen($capacity) < 0) {
+        if ($capacity < 0) {
             throw new Exception('定員は0以上の数値を入力してください');
         }
         $this->capacity = $capacity;
@@ -83,6 +90,7 @@ final class Course
         }
         $this->description = $description;
 
+        // 閉講フラグ
         $this->isFinished = $isFinished;
     }
 
@@ -125,27 +133,11 @@ final class Course
     }
 
     /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return int|null
      */
     public function getPrice(): ?int
     {
         return $this->price;
-    }
-
-    /**
-     * @param int|null $price
-     */
-    public function setPrice(?int $price): void
-    {
-        $this->price = $price;
     }
 
     /**
@@ -157,27 +149,11 @@ final class Course
     }
 
     /**
-     * @param int $capacity
-     */
-    public function setCapacity(int $capacity): void
-    {
-        $this->capacity = $capacity;
-    }
-
-    /**
      * @return string|null
      */
     public function getLocation(): ?string
     {
         return $this->location;
-    }
-
-    /**
-     * @param string|null $location
-     */
-    public function setLocation(?string $location): void
-    {
-        $this->location = $location;
     }
 
     /**
@@ -189,26 +165,10 @@ final class Course
     }
 
     /**
-     * @param string|null $location
-     */
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
      * @return bool
      */
     public function getIsFinished(): bool
     {
         return $this->isFinished;
-    }
-
-    /**
-     * @param bool $isFinished
-     */
-    public function setIsFinished(bool $isFinished): void
-    {
-        $this->isFinished = $isFinished;
     }
 }
