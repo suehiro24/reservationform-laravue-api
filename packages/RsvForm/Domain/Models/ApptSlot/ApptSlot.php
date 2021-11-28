@@ -221,7 +221,7 @@ final class ApptSlot
      */
     public function getNote(): ?string
     {
-        return $this->Note;
+        return $this->note;
     }
 
     /**
