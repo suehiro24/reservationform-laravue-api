@@ -38,11 +38,11 @@ class ApptSlotRepositoryTest extends TestCase
         $this->assertEquals(5, count($apptSlots));
     }
 
-    // public function testGetAllDbEmpty(): void
-    // {
-    //     $apptSlots = $this->repository::getAll();
-    //     $this->assertEquals(0, count($apptSlots));
-    // }
+    public function testGetAllDbEmpty(): void
+    {
+        $apptSlots = $this->repository::getAll();
+        $this->assertEquals(0, count($apptSlots));
+    }
 
     // public function testFind(): void
     // {
