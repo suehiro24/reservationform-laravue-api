@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use RsvForm\Domain\Repositories\IApptSlotRepository;
 use RsvForm\Domain\Repositories\ICourseRepository;
+use RsvForm\Infrastructure\Repositories\ApptSlotRepository;
 use RsvForm\Infrastructure\Repositories\CourseRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
         $this->app->bind(ICourseRepository::class, CourseRepository::class);
+        $this->app->bind(IApptSlotRepository::class, ApptSlotRepository::class);
     }
 
     /**
