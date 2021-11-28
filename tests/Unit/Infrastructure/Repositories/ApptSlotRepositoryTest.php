@@ -4,7 +4,11 @@ namespace Tests\Unit\Infrastructure\Repositories;
 
 use App\Models\ApptSlotElq;
 use App\Models\CourseElq;
+use DateInterval;
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Models\Course\Course;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
 use Tests\TestCase;
 
@@ -60,39 +64,58 @@ class ApptSlotRepositoryTest extends TestCase
         $this->assertTrue(is_null($apptSlot));
     }
 
-    // public function testFind(): void
-    // {
-    //     $apptSlotElq = ApptSlotElq::factory()->create([
-    //         'name' => 'test appt-slot',
-    //     ]);
-    //     $apptSlot = $this->repository::find($apptSlotElq->id);
-    //     $this->assertEquals('test appt-slot', $apptSlot->getName());
-    // }
+    public function testInsert(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        $course = Course::reconstruct(
+            $courseElq->id,
+            $courseElq->name,
+            $courseElq->price,
+            $courseElq->capacity,
+            $courseElq->location,
+            $courseElq->description,
+            $courseElq->is_finished
+        );
+        $start = new DateTime();
+        $end = clone $start;
+        $end = $end->add(new DateInterval('P10D'));
+        $apptSlot = ApptSlot::create($course, $start, $end);
 
-    // public function testInsert(): void
-    // {
-    //     $course = Course::create('name', 100, 10, 'location', 'description', false);
-    //     $courseCreated = $this->repository::persist($course);
-    //     $courseElqCreated = ApptSlotElq::find($courseCreated->getId());
-    //     $this->assertEquals($courseElqCreated->name, $course->getName());
-    // }
+        $apptSlotCreated = $this->repository::persist($apptSlot);
+        $apptSlotElqCreated = ApptSlotElq::find($apptSlotCreated->getId());
+        $this->assertEquals($apptSlotElqCreated->name, $apptSlot->getName());
+    }
 
-    // public function testUpdate(): void
-    // {
-    //     $courseElq = ApptSlotElq::factory()->create();
-    //     $course = Course::reconstruct(
-    //         $courseElq->id,
-    //         'name updated',
-    //         $courseElq->price,
-    //         $courseElq->capacity,
-    //         $courseElq->location,
-    //         $courseElq->description,
-    //         $courseElq->is_finished,
-    //     );
-    //     $courseUpdated = $this->repository::persist($course);
-    //     $courseElqUpdated = ApptSlotElq::find($courseElq->id);
-    //     $this->assertEquals($courseElqUpdated->name, $courseUpdated->getName());
-    // }
+    public function testUpdate(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
+        $course = Course::reconstruct(
+            $courseElq->id,
+            $courseElq->name,
+            $courseElq->price,
+            $courseElq->capacity,
+            $courseElq->location,
+            $courseElq->description,
+            $courseElq->is_finished
+        );
+        $apptSlot = ApptSlot::reconstruct(
+            $apptSlotElq->id,
+            $course,
+            'appt-slot updated',
+            $apptSlotElq->price,
+            $apptSlotElq->capacity,
+            $apptSlotElq->location,
+            $apptSlotElq->note,
+            $apptSlotElq->reservations,
+            $apptSlotElq->start,
+            $apptSlotElq->end,
+        );
+
+        $apptSlotUpdated = $this->repository::persist($apptSlot);
+        $apptSlotElqUpdated = ApptSlotElq::find($apptSlotElq->id);
+        $this->assertEquals($apptSlotElqUpdated->name, $apptSlotUpdated->getName());
+    }
 
     // public function testDelete(): void
     // {

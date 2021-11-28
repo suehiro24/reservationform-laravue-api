@@ -21,12 +21,12 @@ interface IApptSlotRepository
      */
     public static function find(int $id): ?ApptSlot;
 
-    // /**
-    //  * Persitst(insert or update) Appointment-Slot entity.
-    //  *
-    //  * @return ApptSlot
-    //  */
-    // public static function persist(ApptSlot $course): ApptSlot;
+    /**
+     * Persitst(insert or update) Appointment-Slot entity.
+     *
+     * @return ApptSlot
+     */
+    public static function persist(ApptSlot $course): ApptSlot;
 
     // /**
     //  * Set Delete Flag to Appointment-Slot entity.
