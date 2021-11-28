@@ -98,7 +98,7 @@ class CourseRepository implements ICourseRepository
     }
 
     /**
-     * Persitst(insert or update) Course entity.
+     * Delete Course entity.
      *
      * @return boolean
      */
