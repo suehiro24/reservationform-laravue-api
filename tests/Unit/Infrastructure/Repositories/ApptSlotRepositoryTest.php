@@ -44,6 +44,22 @@ class ApptSlotRepositoryTest extends TestCase
         $this->assertEquals(0, count($apptSlots));
     }
 
+    public function testFind(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create([
+            'name' => 'test appointment-slot',
+        ]);
+        $apptSlot = $this->repository::find($apptSlotElq->id);
+        $this->assertEquals('test appointment-slot', $apptSlot->getName());
+    }
+
+    public function testFindNothing(): void
+    {
+        $apptSlot = $this->repository::find(99999);
+        $this->assertTrue(is_null($apptSlot));
+    }
+
     // public function testFind(): void
     // {
     //     $apptSlotElq = ApptSlotElq::factory()->create([

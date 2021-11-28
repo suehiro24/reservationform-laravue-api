@@ -14,12 +14,12 @@ interface IApptSlotRepository
      */
     public static function getAll(): Collection;
 
-    // /**
-    //  * Find specific Appointment-Slot entity.
-    //  *
-    //  * @return ApptSlot|null
-    //  */
-    // public static function find(int $id): ?ApptSlot;
+    /**
+     * Find specific Appointment-Slot entity.
+     *
+     * @return ApptSlot|null
+     */
+    public static function find(int $id): ?ApptSlot;
 
     // /**
     //  * Persitst(insert or update) Appointment-Slot entity.

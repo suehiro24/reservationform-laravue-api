@@ -44,4 +44,43 @@ class ApptSlotRepository implements IApptSlotRepository
             );
         });
     }
+
+    /**
+     * Get specific Appointment-Slot entity.
+     *
+     * @return ApptSlot[]
+     */
+    public static function find(int $id): ?ApptSlot
+    {
+        $apptSlotElq = ApptSlotElq::query()
+            ->with('courseElq')
+            ->find($id);
+
+        if (is_null($apptSlotElq)) {
+            return null;
+        }
+
+        $course = Course::reconstruct(
+            $apptSlotElq->courseElq->id,
+            $apptSlotElq->courseElq->name,
+            $apptSlotElq->courseElq->price,
+            $apptSlotElq->courseElq->capacity,
+            $apptSlotElq->courseElq->location,
+            $apptSlotElq->courseElq->description,
+            $apptSlotElq->courseElq->is_finished
+        );
+
+        return ApptSlot::reconstruct(
+            $apptSlotElq->id,
+            $course,
+            $apptSlotElq->name,
+            $apptSlotElq->price,
+            $apptSlotElq->capacity,
+            $apptSlotElq->location,
+            $apptSlotElq->note,
+            $apptSlotElq->reservations,
+            $apptSlotElq->start,
+            $apptSlotElq->end,
+        );
+    }
 }
