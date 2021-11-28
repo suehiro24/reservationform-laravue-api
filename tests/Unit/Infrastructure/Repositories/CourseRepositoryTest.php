@@ -37,6 +37,12 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals(5, count($course));
     }
 
+    public function testGetAllDbEmpty(): void
+    {
+        $course = $this->repository::getAll();
+        $this->assertEquals(0, count($course));
+    }
+
     public function testFind(): void
     {
         $courseElq = CourseElq::factory()->create([
@@ -44,6 +50,12 @@ class CourseRepositoryTest extends TestCase
         ]);
         $course = $this->repository::find($courseElq->id);
         $this->assertEquals('test course', $course->getName());
+    }
+
+    public function testFindNothing(): void
+    {
+        $course = $this->repository::find(99999);
+        $this->assertTrue(is_null($course));
     }
 
     public function testInsert(): void
