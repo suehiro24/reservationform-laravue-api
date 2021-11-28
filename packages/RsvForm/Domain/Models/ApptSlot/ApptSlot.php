@@ -125,7 +125,7 @@ final class ApptSlot
 
         // 終了日時
         if ($end < $start) {
-            throw new Exception('終了日時は開始日時以前で入力してください');
+            throw new Exception('終了日時には開始日時以降の日時を入力してください');
         }
         $this->end = $end;
 
