@@ -139,4 +139,19 @@ class ApptSlotRepository implements IApptSlotRepository
             $apptSlotElq->end,
         );
     }
+
+    /**
+     * Set Delete Flag to Appointment-Slot entity.
+     *
+     * @return bool
+     */
+    public static function delete(int $id): bool
+    {
+        $apptSlotElq = ApptSlotElq::find($id);
+        if (is_null($apptSlotElq)) {
+            // TODO: log::warn(予約枠削除済み)
+            return true;
+        }
+        return $apptSlotElq->delete();
+    }
 }

@@ -117,15 +117,13 @@ class ApptSlotRepositoryTest extends TestCase
         $this->assertEquals($apptSlotElqUpdated->name, $apptSlotUpdated->getName());
     }
 
-    // public function testDelete(): void
-    // {
-    //     $courseElq = ApptSlotElq::factory()->create();
-    //     $isDeleted = $this->repository::delete($courseElq->id);
-    //     $courseElqDeleted = ApptSlotElq::query()
-    //         ->where('is_deleted', true)
-    //         ->where('id', $courseElq->id)
-    //         ->get();
-    //     $this->assertTrue($isDeleted);
-    //     $this->assertNotEmpty($courseElqDeleted);
-    // }
+    public function testDelete(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
+        $isDeleted = $this->repository::delete($apptSlotElq->id);
+        $apptSlotElqDeleted = ApptSlotElq::find($apptSlotElq->id);
+        $this->assertTrue($isDeleted);
+        $this->assertEmpty($apptSlotElqDeleted);
+    }
 }
