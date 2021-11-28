@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ApptSlotController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,11 @@ Route::prefix('course')->group(function () {
     Route::post('/new', [CourseController::class, 'new']);
     Route::post('/update', [CourseController::class, 'update']);
     Route::post('/delete', [CourseController::class, 'delete']);
+});
+
+Route::prefix('appt-slot')->group(function () {
+    Route::get('/index', [ApptSlotController::class, 'index']);
+    // Route::post('/new', [CourseController::class, 'new']);
+    // Route::post('/update', [CourseController::class, 'update']);
+    // Route::post('/delete', [CourseController::class, 'delete']);
 });
