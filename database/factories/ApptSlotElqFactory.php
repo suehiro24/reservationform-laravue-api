@@ -16,10 +16,10 @@ class ApptSlotElqFactory extends Factory
         return [
             'name' => $this->faker->text(10),
             'price' => $this->faker->randomNumber(4),
-            'capacity' => $this->faker->randomNumber(1),
+            'capacity' => $this->faker->numberBetween(6, 10),
             'location' => $this->faker->text(100),
             'note' => null,
-            'reservations' => $this->faker->randomNumber(1),
+            'reservations' => $this->faker->numberBetween(1, 5),
             'start' => $this->faker->dateTimeBetween('+0 days', '+10 days'),
             'end' => $this->faker->dateTimeBetween('+10 days', '+20 days'),
             'is_full' => false,
