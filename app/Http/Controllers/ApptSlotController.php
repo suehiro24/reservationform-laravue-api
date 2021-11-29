@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use RsvForm\Usecase\Management\ApptSlotCreate;
 use RsvForm\Usecase\Management\ApptSlotIndex;
 
 class ApptSlotController
@@ -41,25 +42,25 @@ class ApptSlotController
         return $this->responder->withEntityCollection($apptSlots);
     }
 
-    // /**
-    //  * 予約枠の新規作成
-    //  * @param Request $request
-    //  * @param CourseCreate $usecase
-    //  * @return JsonResponse
-    //  */
-    // public function new(Request $request, CourseCreate $usecase): JsonResponse
-    // {
-    //     $posts = $request->input();
+    /**
+     * 予約枠の新規作成
+     * @param Request $request
+     * @param ApptSlotCreate $usecase
+     * @return JsonResponse
+     */
+    public function new(Request $request, ApptSlotCreate $usecase): JsonResponse
+    {
+        $posts = $request->input();
 
-    //     try {
-    //         $course = $usecase->__invoke($posts);
-    //     } catch (Exception $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
+        try {
+            $apptSlot = $usecase->__invoke($posts);
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-    //     return $this->responder->withEntity($course, Response::HTTP_CREATED);
-    // }
+        return $this->responder->withEntity($apptSlot, Response::HTTP_CREATED);
+    }
 
     // public function update(Request $request, CourseUpdate $usecase): JsonResponse
     // {

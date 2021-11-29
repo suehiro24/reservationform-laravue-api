@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\ApptSlotElq;
 use App\Models\CourseElq;
+use DateInterval;
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,27 +32,32 @@ class ApptSlotControllerTest extends TestCase
         $response = $this->get('api/appt-slot/index');
         $response->assertOK();
         $response->assertJsonCount(5, 'apptSlots');
-        var_dump($response['apptSlots']);
     }
 
-    // /**
-    //  * 予約枠新規作成テスト
-    //  *
-    //  * @return void
-    //  */
-    // public function testNew()
-    // {
-    //     $data = [
-    //         'name' => 'test course',
-    //         'price' => 1000,
-    //         'capacity' => 5,
-    //         'location' => 'aaaaa',
-    //         'description' => 'xxxxx',
-    //     ];
-    //     $response = $this->post('api/course/new', $data);
-    //     $response->assertCreated();
-    //     $this->assertEquals('test course', $response['course']['name']);
-    // }
+    /**
+     * 予約枠新規作成テスト
+     *
+     * @return void
+     */
+    public function testNew()
+    {
+        $courseElq = CourseElq::factory()->create([
+            'name' => 'test course'
+        ]);
+
+        $start = new DateTime();
+        $end = clone $start;
+        $end = $end->add(new DateInterval('P10D'));
+        $data = [
+            'courseId' => $courseElq->id,
+            'start' => $start,
+            'end' => $end,
+        ];
+
+        $response = $this->post('api/appt-slot/new', $data);
+        $response->assertCreated();
+        $this->assertEquals('test course', $response['apptSlot']['name']);
+    }
 
     // /**
     //  * 予約枠更新テスト
