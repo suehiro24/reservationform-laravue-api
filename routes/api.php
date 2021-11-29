@@ -30,6 +30,6 @@ Route::prefix('course')->group(function () {
 Route::prefix('appt-slot')->group(function () {
     Route::get('/index', [ApptSlotController::class, 'index']);
     Route::post('/new', [ApptSlotController::class, 'new']);
-    // Route::post('/update', [CourseController::class, 'update']);
+    Route::post('/update', [ApptSlotController::class, 'update']);
     // Route::post('/delete', [CourseController::class, 'delete']);
 });

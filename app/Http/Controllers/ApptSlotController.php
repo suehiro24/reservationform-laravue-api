@@ -7,8 +7,10 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 use RsvForm\Usecase\Management\ApptSlotCreate;
 use RsvForm\Usecase\Management\ApptSlotIndex;
+use RsvForm\Usecase\Management\ApptSlotUpdate;
 
 class ApptSlotController
 {
@@ -62,19 +64,19 @@ class ApptSlotController
         return $this->responder->withEntity($apptSlot, Response::HTTP_CREATED);
     }
 
-    // public function update(Request $request, CourseUpdate $usecase): JsonResponse
-    // {
-    //     $posts = $request->input();
+    public function update(Request $request, ApptSlotUpdate $usecase): JsonResponse
+    {
+        $posts = $request->input();
 
-    //     try {
-    //         $course = $usecase->__invoke($posts);
-    //     } catch (Exception $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
+        try {
+            $apptSlot = $usecase->__invoke($posts);
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-    //     return $this->responder->withEntity($course, Response::HTTP_OK);
-    // }
+        return $this->responder->withEntity($apptSlot, Response::HTTP_OK);
+    }
 
     // public function delete(Request $request, CourseDelete $usecase): JsonResponse
     // {

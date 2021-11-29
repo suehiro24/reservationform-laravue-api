@@ -59,29 +59,33 @@ class ApptSlotControllerTest extends TestCase
         $this->assertEquals('test course', $response['apptSlot']['name']);
     }
 
-    // /**
-    //  * 予約枠更新テスト
-    //  *
-    //  * @return void
-    //  */
-    // public function testUpdate()
-    // {
-    //     $courseElq = CourseElq::factory()->create();
+    /**
+     * 予約枠更新テスト
+     *
+     * @return void
+     */
+    public function testUpdate()
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
 
-    //     $data = [
-    //         'id' => $courseElq->id,
-    //         'name' => 'test course',
-    //         'price' => $courseElq->price,
-    //         'location' => $courseElq->location,
-    //         'capacity' => $courseElq->capacity,
-    //         'description' => $courseElq->description,
-    //         'isFinished' => $courseElq->is_finished,
-    //     ];
-    //     $response = $this->post('api/course/update', $data);
-    //     $courseElqUpdated = CourseElq::find($courseElq->id);
-    //     $response->assertOK();
-    //     $this->assertEquals($response['course']['name'], $courseElqUpdated->name);
-    // }
+        $data = [
+            'id' => $apptSlotElq->id,
+            'courseId' => $apptSlotElq->courseElq->id,
+            'name' => 'updated appt-slot',
+            'price' => $apptSlotElq->price,
+            'location' => $apptSlotElq->location,
+            'capacity' => $apptSlotElq->capacity,
+            'note' => $apptSlotElq->note,
+            'reservations' => $apptSlotElq->reservations,
+            'start' => $apptSlotElq->start,
+            'end' => $apptSlotElq->end,
+        ];
+        $response = $this->post('api/appt-slot/update', $data);
+        $apptSlotElqUpdated = ApptSlotElq::find($apptSlotElq->id);
+        $response->assertOK();
+        $this->assertEquals($response['apptSlot']['name'], $apptSlotElqUpdated->name);
+    }
 
     // /**
     //  * 予約枠削除テスト
