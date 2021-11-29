@@ -26,7 +26,7 @@ interface IApptSlotRepository
      *
      * @return ApptSlot
      */
-    public static function persist(ApptSlot $course): ApptSlot;
+    public static function persist(ApptSlot $apptSlot): ApptSlot;
 
     /**
      * Set Delete Flag to Appointment-Slot entity.
