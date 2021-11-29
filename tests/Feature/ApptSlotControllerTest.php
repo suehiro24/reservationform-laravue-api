@@ -87,20 +87,21 @@ class ApptSlotControllerTest extends TestCase
         $this->assertEquals($response['apptSlot']['name'], $apptSlotElqUpdated->name);
     }
 
-    // /**
-    //  * 予約枠削除テスト
-    //  *
-    //  * @return void
-    //  */
-    // public function testDelete()
-    // {
-    //     $courseElq = CourseElq::factory()->create();
-    //     $data = [
-    //         'id' => $courseElq->id
-    //     ];
-    //     $response = $this->post('api/course/delete', $data);
-    //     $courseElqDeleted = CourseElq::find($courseElq->id);
-    //     $response->assertOk();
-    //     $this->assertTrue($courseElqDeleted->is_deleted);
-    // }
+    /**
+     * 予約枠削除テスト
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
+        $data = [
+            'id' => $apptSlotElq->id
+        ];
+        $response = $this->post('api/appt-slot/delete', $data);
+        $apptSlotElqDeleted = ApptSlotElq::find($apptSlotElq->id);
+        $response->assertOk();
+        $this->assertEmpty($apptSlotElqDeleted);
+    }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 use RsvForm\Usecase\Management\ApptSlotCreate;
+use RsvForm\Usecase\Management\ApptSlotDelete;
 use RsvForm\Usecase\Management\ApptSlotIndex;
 use RsvForm\Usecase\Management\ApptSlotUpdate;
 
@@ -78,23 +79,23 @@ class ApptSlotController
         return $this->responder->withEntity($apptSlot, Response::HTTP_OK);
     }
 
-    // public function delete(Request $request, CourseDelete $usecase): JsonResponse
-    // {
-    //     $posts = $request->input();
+    public function delete(Request $request, ApptSlotDelete $usecase): JsonResponse
+    {
+        $posts = $request->input();
 
-    //     try {
-    //         $isDeleted = $usecase->__invoke($posts);
-    //         if (! $isDeleted) {
-    //             throw new Exception();
-    //         }
-    //     } catch (Exception $e) {
-    //         logs()->error($e);
-    //         return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
+        try {
+            $isDeleted = $usecase->__invoke($posts);
+            if (! $isDeleted) {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-    //     return new JsonResponse(
-    //         [],
-    //         Response::HTTP_OK
-    //     );
-    // }
+        return new JsonResponse(
+            [],
+            Response::HTTP_OK
+        );
+    }
 }

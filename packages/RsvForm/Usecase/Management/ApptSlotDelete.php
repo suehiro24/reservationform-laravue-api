@@ -2,23 +2,23 @@
 
 namespace RsvForm\Usecase\Management;
 
-use RsvForm\Domain\Models\Course\Course;
-use RsvForm\Domain\Repositories\ICourseRepository;
+use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Repositories\IApptSlotRepository;
 
-class CourseDelete
+class ApptSlotDelete
 {
     /**
-     * @var ICourseRepository
+     * @var IApptSlotRepository
      */
     private $repository;
 
-    public function __construct(ICourseRepository $repository)
+    public function __construct(IApptSlotRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @return Course
+     * @return ApptSlot
      */
     public function __invoke($posts): bool
     {
