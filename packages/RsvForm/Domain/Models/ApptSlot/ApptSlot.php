@@ -134,22 +134,21 @@ final class ApptSlot
     }
 
     public static function create(
-        Course $Course,
+        Course $course,
         DateTime $start,
         DateTime $end,
     ): ApptSlot {
         return new ApptSlot(
             null,
-            $Course,
-            $Course->getName(),
-            $Course->getPrice(),
-            $Course->getCapacity(),
-            $Course->getLocation(),
+            $course,
+            $course->getName(),
+            $course->getPrice(),
+            $course->getCapacity(),
+            $course->getLocation(),
             null,
             0,
             $start,
             $end,
-            false
         );
     }
 
