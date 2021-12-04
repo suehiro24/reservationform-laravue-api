@@ -2,7 +2,6 @@
 
 namespace RsvForm\Usecase\Management;
 
-use Carbon\Carbon;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 use RsvForm\Domain\Models\ApptSlot\TimeSlot;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
