@@ -54,12 +54,7 @@ class ApptSlotController
      */
     public function new(Request $request, ApptSlotCreate $usecase): JsonResponse
     {
-        $posts = $request->validate([
-            'start' => 'required|date',
-            'end' => 'required|date',
-        ]);
-        $posts['start'] = new Carbon($posts['start']);
-        $posts['end'] = new Carbon($posts['end']);
+        $posts = $request->input();
 
         try {
             $apptSlot = $usecase->__invoke($posts);
@@ -73,13 +68,7 @@ class ApptSlotController
 
     public function update(Request $request, ApptSlotUpdate $usecase): JsonResponse
     {
-        $posts = $request->validate([
-            'start' => 'required|date',
-            'end' => 'required|date',
-        ]);
         $posts = $request->input();
-        $posts['start'] = new Carbon($posts['start']);
-        $posts['end'] = new Carbon($posts['end']);
 
         try {
             $apptSlot = $usecase->__invoke($posts);

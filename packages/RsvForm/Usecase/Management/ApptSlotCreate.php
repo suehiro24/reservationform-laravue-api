@@ -2,6 +2,7 @@
 
 namespace RsvForm\Usecase\Management;
 
+use Carbon\Carbon;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
 use RsvForm\Domain\Repositories\ICourseRepository;
@@ -35,8 +36,8 @@ class ApptSlotCreate
         $course = $this->courseRepository::find($posts["courseId"]);
         $apptSlot = ApptSlot::create(
             $course,
-            $posts['start'],
-            $posts['end'],
+            new Carbon($posts['start']),
+            new Carbon($posts['end'])
         );
         return $this->apptSlotRepository->persist($apptSlot);
     }
