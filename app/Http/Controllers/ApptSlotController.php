@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Usecase\Form\AcceptReservation;
 use RsvForm\Usecase\Management\ApptSlotCreate;
 use RsvForm\Usecase\Management\ApptSlotDelete;
 use RsvForm\Usecase\Management\ApptSlotIndex;
@@ -98,5 +98,19 @@ class ApptSlotController
             [],
             Response::HTTP_OK
         );
+    }
+
+    public function reserve(Request $request, AcceptReservation $usecase): JsonResponse
+    {
+        $posts = $request->input();
+
+        try {
+            $apptSlot = $usecase->__invoke($posts);
+        } catch (Exception $e) {
+            logs()->error($e);
+            return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->responder->withEntity($apptSlot, Response::HTTP_OK);
     }
 }

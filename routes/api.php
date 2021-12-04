@@ -32,4 +32,5 @@ Route::prefix('appt-slot')->group(function () {
     Route::post('/new', [ApptSlotController::class, 'new']);
     Route::post('/update', [ApptSlotController::class, 'update']);
     Route::post('/delete', [ApptSlotController::class, 'delete']);
+    Route::post('/reserve', [ApptSlotController::class, 'reserve']);
 });

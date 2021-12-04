@@ -104,4 +104,25 @@ class ApptSlotControllerTest extends TestCase
         $response->assertOk();
         $this->assertEmpty($apptSlotElqDeleted);
     }
+
+    /**
+     * 予約受付テスト
+     *
+     * @return void
+     */
+    public function testAcceptReservation()
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
+        $data = [
+            'id' => $apptSlotElq->id,
+            '氏名' => 'test name',
+            'メールアドレス' => 'test e-mail address',
+            '備考' => 'test note',
+        ];
+        $response = $this->post('api/appt-slot/reserve', $data);
+        $apptSlotElqReserved = ApptSlotElq::find($apptSlotElq->id);
+        $response->assertOk();
+        $this->assertEquals(($apptSlotElq->reservations + 1), $apptSlotElqReserved->reservations);
+    }
 }

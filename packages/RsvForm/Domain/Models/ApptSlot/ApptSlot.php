@@ -2,7 +2,6 @@
 
 namespace RsvForm\Domain\Models\ApptSlot;
 
-use DateTime;
 use Exception;
 use RsvForm\Domain\Models\Course\Course;
 
@@ -162,6 +161,33 @@ final class ApptSlot
     }
 
     /**
+     * 予約受付
+     *
+     * @param ApptSlot $apptSlot
+     * @param array $userInfo
+     * @return ApptSlot
+     */
+    public static function reserve(ApptSlot $apptSlot, array $userInfo): ApptSlot {
+        $noteUpdated = $apptSlot->getNote().'\n---------------';
+        foreach ($userInfo as $key => $value) {
+            $noteUpdated = $noteUpdated.'\n ●'.$key.'\n'.$value;
+        }
+        $reservationsUpdated = $apptSlot->getReservations() + 1;
+
+        return self::reconstruct(
+            $apptSlot->getId(),
+            $apptSlot->getCourse(),
+            $apptSlot->getName(),
+            $apptSlot->getPrice(),
+            $apptSlot->getCapacity(),
+            $apptSlot->getLocation(),
+            $noteUpdated,
+            $reservationsUpdated,
+            $apptSlot->getTimeSlot()
+        );
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -218,9 +244,9 @@ final class ApptSlot
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function getReservations(): bool
+    public function getReservations(): int
     {
         return $this->reservations;
     }
