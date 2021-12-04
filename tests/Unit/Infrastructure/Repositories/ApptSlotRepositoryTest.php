@@ -8,6 +8,7 @@ use DateInterval;
 use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Models\ApptSlot\TimeSlot;
 use RsvForm\Domain\Models\Course\Course;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
 use Tests\TestCase;
@@ -79,7 +80,14 @@ class ApptSlotRepositoryTest extends TestCase
         $start = new DateTime();
         $end = clone $start;
         $end = $end->add(new DateInterval('P10D'));
-        $apptSlot = ApptSlot::create($course, $start, $end);
+        $timeSlot = new TimeSlot(
+            $start->format(DateTime::ATOM),
+            $end->format(DateTime::ATOM),
+        );
+        $apptSlot = ApptSlot::create(
+            $course,
+            $timeSlot
+        );
 
         $apptSlotCreated = $this->repository::persist($apptSlot);
         $apptSlotElqCreated = ApptSlotElq::find($apptSlotCreated->getId());
@@ -108,8 +116,7 @@ class ApptSlotRepositoryTest extends TestCase
             $apptSlotElq->location,
             $apptSlotElq->note,
             $apptSlotElq->reservations,
-            $apptSlotElq->start,
-            $apptSlotElq->end,
+            new TimeSlot($apptSlotElq->start, $apptSlotElq->end)
         );
 
         $apptSlotUpdated = $this->repository::persist($apptSlot);

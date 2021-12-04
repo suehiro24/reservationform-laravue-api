@@ -50,8 +50,8 @@ class ApptSlotControllerTest extends TestCase
         $end = $end->add(new DateInterval('P10D'));
         $data = [
             'courseId' => $courseElq->id,
-            'start' => $start,
-            'end' => $end,
+            'start' => $start->format(DateTime::ATOM),
+            'end' => $end->format(DateTime::ATOM),
         ];
 
         $response = $this->post('api/appt-slot/new', $data);
@@ -78,8 +78,8 @@ class ApptSlotControllerTest extends TestCase
             'capacity' => $apptSlotElq->capacity,
             'note' => $apptSlotElq->note,
             'reservations' => $apptSlotElq->reservations,
-            'start' => $apptSlotElq->start,
-            'end' => $apptSlotElq->end,
+            'start' => $apptSlotElq->start->format(DateTime::ATOM),
+            'end' => $apptSlotElq->end->format(DateTime::ATOM),
         ];
         $response = $this->post('api/appt-slot/update', $data);
         $apptSlotElqUpdated = ApptSlotElq::find($apptSlotElq->id);

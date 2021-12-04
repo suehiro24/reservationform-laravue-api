@@ -25,8 +25,8 @@ class ApptSlotJsonSerializer
             'location' => $apptSlot->getLocation(),
             'note' => $apptSlot->getNote(),
             'reservations' => $apptSlot->getReservations(),
-            'start' => $apptSlot->getStart(),
-            'end' => $apptSlot->getEnd(),
+            'start' => $apptSlot->getTimeSlot()->getStart(),
+            'end' => $apptSlot->getTimeSlot()->getEnd(),
             'isFull' => $apptSlot->getIsFull(),
         ];
     }

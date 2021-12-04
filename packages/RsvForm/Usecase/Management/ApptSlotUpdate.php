@@ -4,6 +4,7 @@ namespace RsvForm\Usecase\Management;
 
 use Carbon\Carbon;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Models\ApptSlot\TimeSlot;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
 use RsvForm\Domain\Repositories\ICourseRepository;
 
@@ -43,8 +44,7 @@ class ApptSlotUpdate
             $posts['location'],
             $posts['note'],
             $posts['reservations'],
-            new Carbon($posts['start']),
-            new Carbon($posts['end'])
+            new TimeSlot($posts['start'], $posts['end'])
         );
         return $this->apptSlotRepository->persist($apptSlot);
     }

@@ -6,6 +6,7 @@ use App\Models\ApptSlotElq;
 use Exception;
 use Illuminate\Support\Collection;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Models\ApptSlot\TimeSlot;
 use RsvForm\Domain\Models\Course\Course;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
 
@@ -40,8 +41,7 @@ class ApptSlotRepository implements IApptSlotRepository
                 $apptSlotElq->location,
                 $apptSlotElq->note,
                 $apptSlotElq->reservations,
-                $apptSlotElq->start,
-                $apptSlotElq->end,
+                new TimeSlot($apptSlotElq->start, $apptSlotElq->end)
             );
         });
     }
@@ -80,8 +80,7 @@ class ApptSlotRepository implements IApptSlotRepository
             $apptSlotElq->location,
             $apptSlotElq->note,
             $apptSlotElq->reservations,
-            $apptSlotElq->start,
-            $apptSlotElq->end,
+            new TimeSlot($apptSlotElq->start, $apptSlotElq->end)
         );
     }
 
@@ -111,8 +110,8 @@ class ApptSlotRepository implements IApptSlotRepository
         $apptSlotElq->location = $apptSlot->getLocation();
         // $apptSlotElq->note = $apptSlot->getNote();
         $apptSlotElq->reservations = $apptSlot->getReservations();
-        $apptSlotElq->start = $apptSlot->getStart();
-        $apptSlotElq->end = $apptSlot->getEnd();
+        $apptSlotElq->start = $apptSlot->getTimeSlot()->getStart();
+        $apptSlotElq->end = $apptSlot->getTimeSlot()->getEnd();
 
         $apptSlotElq->save();
 
@@ -135,8 +134,7 @@ class ApptSlotRepository implements IApptSlotRepository
             $apptSlotElq->location,
             $apptSlotElq->note,
             $apptSlotElq->reservations,
-            $apptSlotElq->start,
-            $apptSlotElq->end,
+            new TimeSlot($apptSlotElq->start, $apptSlotElq->end)
         );
     }
 

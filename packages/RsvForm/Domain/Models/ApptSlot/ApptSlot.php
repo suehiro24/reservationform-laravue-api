@@ -51,16 +51,10 @@ final class ApptSlot
     private int $reservations;
 
     /**
-     * 開始日時
-     * @var DateTime
+     * 時間枠(開始, 終了日時)
+     * @var TimeSlot
      */
-    private DateTime $start;
-
-    /**
-     * 終了日時
-     * @var DateTime
-     */
-    private DateTime $end;
+    private TimeSlot $timeSlot;
 
     /**
      * 満員フラグ
@@ -77,8 +71,7 @@ final class ApptSlot
         ?string $location = null,
         ?string $note = null,
         int $reservations,
-        DateTime $start,
-        DateTime $end,
+        TimeSlot $timeSlot,
     ) {
         // 予約枠ID
         $this->id = $id;
@@ -120,14 +113,8 @@ final class ApptSlot
         }
         $this->reservations = $reservations;
 
-        // 開始日時
-        $this->start = $start;
-
-        // 終了日時
-        if ($end < $start) {
-            throw new Exception('終了日時には開始日時以降の日時を入力してください');
-        }
-        $this->end = $end;
+        // 時間枠(開始, 終了日時)
+        $this->timeSlot = $timeSlot;
 
         // 満員フラグ
         $this->isFull = $reservations >= $capacity;
@@ -135,8 +122,7 @@ final class ApptSlot
 
     public static function create(
         Course $course,
-        DateTime $start,
-        DateTime $end,
+        TimeSlot $timeSlot
     ): ApptSlot {
         return new ApptSlot(
             null,
@@ -147,8 +133,7 @@ final class ApptSlot
             $course->getLocation(),
             null,
             0,
-            $start,
-            $end,
+            $timeSlot
         );
     }
 
@@ -161,10 +146,19 @@ final class ApptSlot
         ?string $location = null,
         ?string $note = null,
         int $reservations,
-        DateTime $start,
-        DateTime $end,
+        TimeSlot $timeSlot
     ): ApptSlot {
-        return new ApptSlot($id, $course, $name, $price, $capacity, $location, $note, $reservations, $start, $end);
+        return new ApptSlot(
+            $id,
+            $course,
+            $name,
+            $price,
+            $capacity,
+            $location,
+            $note,
+            $reservations,
+            $timeSlot
+        );
     }
 
     /**
@@ -232,19 +226,11 @@ final class ApptSlot
     }
 
     /**
-     * @return DateTime
+     * @return TimeSlot
      */
-    public function getStart(): DateTime
+    public function getTimeSlot(): TimeSlot
     {
-        return $this->start;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getEnd(): DateTime
-    {
-        return $this->end;
+        return $this->timeSlot;
     }
 
     /**
