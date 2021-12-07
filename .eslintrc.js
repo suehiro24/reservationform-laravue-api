@@ -40,10 +40,8 @@ module.exports = {
     'vue/max-attributes-per-line': 'off',
 
     // Priority C: Recommended
-    // override
-    // 'vue/order-in-components': ['error', {}]
 
-    // Uncategorized
+    // Uncategorized, Extension Rules
     'vue/block-tag-newline': 'error',
     'vue/html-button-has-type': 'error',
     'vue/html-comment-content-spacing': 'error',
@@ -53,11 +51,14 @@ module.exports = {
       extensions: ['vue'],
       shouldMatchCase: true,
     }],
+    'vue/require-name-property': 'error',
+
     'vue/array-bracket-newline': 'off',
     'vue/array-bracket-spacing': 'error',
     'vue/arrow-spacing': 'error',
     'vue/block-spacing': 'error',
     'vue/brace-style': 'error',
+    'vue/camelcase': 'error',
     'vue/comma-dangle': 'error',
     'vue/comma-spacing': 'error',
     'vue/comma-style': 'error',
