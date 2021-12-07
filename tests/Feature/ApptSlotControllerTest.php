@@ -124,5 +124,6 @@ class ApptSlotControllerTest extends TestCase
         $apptSlotElqReserved = ApptSlotElq::find($apptSlotElq->id);
         $response->assertOk();
         $this->assertEquals(($apptSlotElq->reservations + 1), $apptSlotElqReserved->reservations);
+        $this->assertEquals(($apptSlotElq->reservations + 1), $response['apptSlot']['reservations']);
     }
 }
