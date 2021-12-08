@@ -11,6 +11,7 @@ import vuetify from '@/vuetify'
 
 // Vue.config.productionTip = false
 
+/* eslint-disable vue/require-name-property */
 new Vue({
   router,
   // store,
