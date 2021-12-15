@@ -17,6 +17,7 @@ module.exports = {
     // eslint
     // -------------------------------------------------------------------------
     semi: ['error', 'never'],
+    'indent': ['error', 2],
     'quotes': [2, 'single', { 'avoidEscape': true }],
     'space-before-function-paren': ['error', 'always'],
     'space-before-blocks': ['error', 'always'],
