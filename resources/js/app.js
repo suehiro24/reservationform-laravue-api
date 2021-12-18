@@ -8,6 +8,8 @@ import vuetify from '@/plugins/vuetify'
 
 import enableAxiosStoreLoadingSetter from '@/plugins/common/axios-store-loading-setter'
 enableAxiosStoreLoadingSetter(axios, store)
+import enableAxiosAbnormalErrorHandler from '@/plugins/common/axios-abnormal-error-handler'
+enableAxiosAbnormalErrorHandler(axios, store)
 
 // import VueCompositionAPI from '@vue/composition-api'
 // Vue.use(VueCompositionAPI)
