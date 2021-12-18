@@ -5,8 +5,8 @@ const handleError = (axios, store, error = null) => {
   if (error && !error.code && error.message === 'Network Error') {
     console.error('network error')
 
-    store.dispatch('errorHandler/pushMessage', error.message)
-    store.dispatch('errorHandler/flash')
+    store.dispatch('flashMsg/pushMessage', error.message)
+    store.dispatch('flashMsg/flash')
     return
   }
 
@@ -23,8 +23,8 @@ const handleError = (axios, store, error = null) => {
   if (error instanceof AbnormalResponseException) {
     console.error('abnormal response!', error)
 
-    store.dispatch('errorHandler/pushMessage', error.message)
-    store.dispatch('errorHandler/flash')
+    store.dispatch('flashMsg/pushMessage', error.message)
+    store.dispatch('flashMsg/flash')
     return
   }
 

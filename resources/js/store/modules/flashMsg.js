@@ -30,11 +30,10 @@ const actions = {
 }
 
 const mutations = {
-  setMessages () {
-    state.messages = []
+  setMessages (state, messages) {
+    state.messages = messages
   },
   setIsFlash (state, isLoading) {
-    state.messages.push(message)
     state.isLoading = isLoading
   },
 }
