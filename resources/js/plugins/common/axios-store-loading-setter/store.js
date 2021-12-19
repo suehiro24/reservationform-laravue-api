@@ -10,22 +10,18 @@ const getters = {
 }
 
 const actions = {
-  updateIsLoading (context, isLoading) {
-    if (isLoading) {
-      context.commit('increment')
-      context.commit('setIsLoading', isLoading)
-      console.log('Incremented calling api counter', context.state.counter)
-    } else {
-      // falseに切り替わった場合は即時に次の通信が始まる可能性があるので, 特定ミリ秒待ってから切り替える
-      setTimeout(() => {
-        context.commit('decrement')
-        console.log('Decremented calling api counter', context.state.counter)
-        if (context.state.counter === 0) {
-          context.commit('setIsLoading', isLoading)
-          console.log('Finish loding')
-        }
-      }, 500)
-    }
+  increment (context) {
+    context.commit('increment')
+    context.commit('setIsLoading', true)
+  },
+  decrement (context) {
+    // falseに切り替わった場合は即時に次の通信が始まる可能性があるので, 特定ミリ秒待ってから処理を行う
+    setTimeout(() => {
+      context.commit('decrement')
+      if (context.state.counter === 0) {
+        context.commit('setIsLoading', false)
+      }
+    }, 500)
   },
 }
 

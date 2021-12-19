@@ -1,35 +1,24 @@
-let loadingCounter = 0
-
-const updateIsLoading = (store, setMutationType) => {
-  const isLoading = loadingCounter > 0
-  store.dispatch(setMutationType, isLoading)
-}
-
-const enableAxiosStoreLoadingSetter = (axios, store, setMutationType) => {
+const enableAxiosStoreLoadingSetter = (axios, store) => {
   axios.interceptors.request.use(
     config => {
-      loadingCounter++
-      updateIsLoading(store, setMutationType)
+      store.dispatch('loader/increment')
 
       return config
     },
     error => {
-      loadingCounter--
-      updateIsLoading(store, setMutationType)
+      store.dispatch('loader/decrement')
 
       return Promise.reject(error)
     })
 
   axios.interceptors.response.use(
     response => {
-      loadingCounter--
-      updateIsLoading(store, setMutationType)
+      store.dispatch('loader/decrement')
 
       return response
     },
     error => {
-      loadingCounter--
-      updateIsLoading(store, setMutationType)
+      store.dispatch('loader/decrement')
 
       return Promise.reject(error)
     })
