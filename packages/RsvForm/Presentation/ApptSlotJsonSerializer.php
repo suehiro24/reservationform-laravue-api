@@ -2,6 +2,7 @@
 
 namespace RsvForm\Presentation;
 
+use DateTime;
 use Illuminate\Support\Collection;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 
@@ -25,8 +26,8 @@ class ApptSlotJsonSerializer
             'location' => $apptSlot->getLocation(),
             'note' => $apptSlot->getNote(),
             'reservations' => $apptSlot->getReservations(),
-            'start' => $apptSlot->getTimeSlot()->getStart(),
-            'end' => $apptSlot->getTimeSlot()->getEnd(),
+            'start' => $apptSlot->getTimeSlot()->getStart()->format(DateTime::ATOM),
+            'end' => $apptSlot->getTimeSlot()->getEnd()->format(DateTime::ATOM),
             'isFull' => $apptSlot->getIsFull(),
         ];
     }
