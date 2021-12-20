@@ -21,7 +21,7 @@ const handleError = (axios, store, error = null) => {
   }
 
   if (error instanceof AbnormalResponseException) {
-    console.error('abnormal response!', error)
+    console.error('[Abnormal response!]\n', error)
 
     store.dispatch('flashMsg/pushMessage', error.message)
     store.dispatch('flashMsg/flash')

@@ -4,7 +4,7 @@ class AbnormalResponseException extends Error {
     super()
 
     this.name = 'AbnormalResponseException'
-    this.message = response.data.header.result_message
+    this.message = response.data.resultMessage
   }
 }
 
