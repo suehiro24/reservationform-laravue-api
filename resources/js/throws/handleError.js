@@ -6,7 +6,6 @@ const handleError = (axios, store, error = null) => {
     console.error('network error')
 
     store.dispatch('flashMsg/pushMessage', error.message)
-    store.dispatch('flashMsg/flash')
     return
   }
 
@@ -24,7 +23,6 @@ const handleError = (axios, store, error = null) => {
     console.error('[Abnormal response!]\n', error)
 
     store.dispatch('flashMsg/pushMessage', error.message)
-    store.dispatch('flashMsg/flash')
     return
   }
 
