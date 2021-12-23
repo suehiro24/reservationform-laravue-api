@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AbnormalResponseException;
+use App\Exceptions\ResultCode;
 use App\Http\Responder\ApptSlotResponder;
 use Carbon\Carbon;
 use Exception;
@@ -37,6 +39,7 @@ class ApptSlotController
      */
     public function index(ApptSlotIndex $usecase): JsonResponse
     {
+        throw new AbnormalResponseException(ResultCode::Failed, 'test error');
         try {
             $apptSlots = $usecase->__invoke();
         } catch (Exception $e) {

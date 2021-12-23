@@ -9,7 +9,7 @@ use Throwable;
 
 class AbnormalResponseException extends Exception
 {
-    private string $resultCode;
+    private ResultCode $resultCode;
 
     /**
      * @param string $resultCode 結果コード
@@ -18,31 +18,13 @@ class AbnormalResponseException extends Exception
      * @param Throwable|null $previous [optional] The previous throwable used for the exception chaining.
      */
     public function __construct(
-        string $resultCode,
+        ResultCode $resultCode,
         string $message,
         int $code = 0,
         Throwable $previous = null
     ) {
         $this->resultCode = $resultCode;
         parent::__construct($message, $code, $previous);
-    }
-
-    /**
-     * @return string $resultCode 結果コード
-     */
-    public function getResultCode()
-    {
-        return $this->resultCode;
-    }
-
-    /**
-     * @return string $resultCode 結果コード
-     */
-    private function resolveResultCode()
-    {
-        // TODO: 結果コード定数ファイル作成
-        // $this->resultCode;
-        return "[temp] Abnormal response messageeeeeeeeeeeee";
     }
 
     /**
@@ -66,8 +48,8 @@ class AbnormalResponseException extends Exception
         return new JsonResponse(
             [
                 'abnormalContents' => [
-                    'resultMessage' => $this->resolveResultCode(),
-                    'resultCode' => $this->getResultCode()
+                    'resultCode' => $this->resultCode->value,
+                    'resultMessage' => $this->resultCode->resultMessage(),
                 ]
             ],
             Response::HTTP_OK,
