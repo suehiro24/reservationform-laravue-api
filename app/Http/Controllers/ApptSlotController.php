@@ -39,7 +39,8 @@ class ApptSlotController
      */
     public function index(ApptSlotIndex $usecase): JsonResponse
     {
-        throw new AbnormalResponseException(ResultCode::Failed, 'test error');
+        // throw new AbnormalResponseException(ResultCode::Failed, 'test error');
+
         try {
             $apptSlots = $usecase->__invoke();
         } catch (Exception $e) {
