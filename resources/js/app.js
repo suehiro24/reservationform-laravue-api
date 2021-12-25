@@ -15,6 +15,9 @@ import vuetify from '@/plugins/vuetify'
 // ロード中フラグ管理
 import enableAxiosStoreLoadingSetter from '@/plugins/common/axios-store-loading-setter'
 enableAxiosStoreLoadingSetter(axios, store)
+// 通信ログ
+import enableAxiosLogger from '@/plugins/common/axios-logger'
+enableAxiosLogger(axios)
 // ユーザメッセージ可能な例外のハンドリング
 import enableAxiosAbnormalResponseHandler from '@/plugins/common/axios-abnormal-response-handler'
 enableAxiosAbnormalResponseHandler(axios, AbnormalResponseException)
