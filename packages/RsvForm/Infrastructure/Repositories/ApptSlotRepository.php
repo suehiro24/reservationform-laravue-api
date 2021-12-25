@@ -108,7 +108,7 @@ class ApptSlotRepository implements IApptSlotRepository
         $apptSlotElq->price = $apptSlot->getPrice();
         $apptSlotElq->capacity = $apptSlot->getCapacity();
         $apptSlotElq->location = $apptSlot->getLocation();
-        // $apptSlotElq->note = $apptSlot->getNote();
+        $apptSlotElq->note = $apptSlot->getNote();
         $apptSlotElq->reservations = $apptSlot->getReservations();
         $apptSlotElq->start = $apptSlot->getTimeSlot()->getStart();
         $apptSlotElq->end = $apptSlot->getTimeSlot()->getEnd();

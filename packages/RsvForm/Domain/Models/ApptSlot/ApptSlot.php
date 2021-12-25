@@ -103,8 +103,10 @@ final class ApptSlot
         $this->location = $location;
 
         // 予約者詳細
-        // TODO: 仕様決め
-        $this->note = null;
+        if (mb_strlen($note) > 3000) {
+            throw new Exception('予約者詳細は3000文字以内で入力してください');
+        }
+        $this->note = $note;
 
         // 予約者数
         if ($reservations > $capacity) {
