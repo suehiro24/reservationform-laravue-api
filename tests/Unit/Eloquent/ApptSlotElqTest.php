@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Infrastructure\Repositories;
+namespace Tests\Unit\Eloquent;
 
 use App\Models\ApptSlotElq;
 use App\Models\CourseElq;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ApptSlotEsqTest extends TestCase
+class ApptSlotElqTest extends TestCase
 {
     use RefreshDatabase;
     protected $seed = true;
