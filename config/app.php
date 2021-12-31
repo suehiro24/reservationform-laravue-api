@@ -174,6 +174,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Modified
+        // See: https://readouble.com/laravel/8.x/ja/fortify.html#the-fortify-service-provider
+        App\Providers\FortifyServiceProvider::class,
 
     ],
 
