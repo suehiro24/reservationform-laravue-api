@@ -118,7 +118,9 @@ return [
     |
     */
 
-    'views' => true,
+    // Modified
+    // See: https://readouble.com/laravel/8.x/ja/fortify.html#disabling-views
+    'views' => false,
 
     /*
     |--------------------------------------------------------------------------
