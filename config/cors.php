@@ -29,6 +29,9 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    // For Laravel Sanctum
+    // See: https://readouble.com/laravel/8.x/ja/sanctum.html#cors-and-cookies
+    // See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials
+    'supports_credentials' => true,
 
 ];

@@ -11,6 +11,14 @@ window.axios = require('axios')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 /**
+ * For Laravel Sanctum
+ *
+ * @see https://readouble.com/laravel/8.x/ja/sanctum.html#cors-and-cookies
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials
+ */
+window.axios.defaults.withCredentials = true
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
