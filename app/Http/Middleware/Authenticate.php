@@ -15,7 +15,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            // See: https://laravelvuespa.com/authentication/laravel-authentication#email-verification
+            return url(env('SPA_URL') . '/login');
+            // return route('login');
         }
     }
 }
