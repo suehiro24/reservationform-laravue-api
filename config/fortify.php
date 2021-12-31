@@ -61,7 +61,8 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    // See: https://laravelvuespa.com/authentication/laravel-authentication#setting-up-fortify
+    'home' => env('SPA_URL') . '/management',
 
     /*
     |--------------------------------------------------------------------------

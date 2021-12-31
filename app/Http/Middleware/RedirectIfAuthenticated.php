@@ -23,6 +23,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // For SPA
+                // See: https://laravelvuespa.com/authentication/laravel-authentication#redirecting-if-authenticated
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => 'Already authenticated.'], 200);
+                }
+
+                // For Other views
                 return redirect(RouteServiceProvider::HOME);
             }
         }
