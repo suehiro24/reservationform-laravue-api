@@ -12,6 +12,9 @@ import vuetify from '@/plugins/vuetify'
 /**
  * Plugins
  */
+// 認証
+import enableAxiosLaravelSanctumAuthHandler from '@/plugins/common/axios-laravel-sanctum-auth-handler'
+enableAxiosLaravelSanctumAuthHandler(axios, store, router)
 // ロード中フラグ管理
 import enableAxiosStoreLoadingSetter from '@/plugins/common/axios-store-loading-setter'
 enableAxiosStoreLoadingSetter(axios, store)
