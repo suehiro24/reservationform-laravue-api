@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ApptSlotController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::get('/auth', [AuthController::class, 'showAuthUser']);
+}
+);
 
 Route::prefix('course')->group(function () {
     Route::get('/index', [CourseController::class, 'index']);
