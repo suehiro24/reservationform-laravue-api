@@ -26,11 +26,10 @@ class RedirectIfAuthenticated
                 // For SPA
                 // See: https://laravelvuespa.com/authentication/laravel-authentication#redirecting-if-authenticated
                 if ($request->expectsJson()) {
-                    // 認証済みユーザによるユーザ登録を許可
-                    if ($request->input('password_confirmation')) {
-                        return $next($request);
-                    }
-                    return response()->json(['error' => 'Already authenticated.'], 200);
+                    // 認証済みユーザによるユーザ登録, 再ログインを許可
+                    return $next($request);
+
+                    // return response()->json(['error' => 'Already authenticated.'], 200);
                 }
 
                 // For Other views
