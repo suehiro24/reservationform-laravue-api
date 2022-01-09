@@ -5,15 +5,9 @@ const handleError = (axios, store, error = null) => {
   if (error && !error.code && error.message === 'Network Error') {
     console.error('network error')
 
-    store.dispatch('flashMsg/pushMessage', error.message)
+    store.dispatch('flashMsg/pushErrorMessage', error.message)
     return
   }
-
-  // // 認証切れ。画面更新し、ログイン画面出す
-  // if (error && error.response && error.response.status === 401) {
-  //   window.location.reload(true)
-  //   return
-  // }
 
   if (axios.isCancel(error)) {
     return
@@ -22,7 +16,7 @@ const handleError = (axios, store, error = null) => {
   if (error instanceof AbnormalResponseException) {
     console.error('[Abnormal response!]\n', error)
 
-    store.dispatch('flashMsg/pushMessage', error.message)
+    store.dispatch('flashMsg/pushErrorMessage', error.message)
     return
   }
 

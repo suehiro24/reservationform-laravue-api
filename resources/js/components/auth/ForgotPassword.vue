@@ -22,7 +22,7 @@
             <v-btn
               :disabled="!valid"
               color="primary"
-              @click="forgotPassword"
+              @click="execForgotPassword"
             >
               パスワードリセット用メールを送る
             </v-btn>
@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import authService from '@/plugins/common/axios-laravel-sanctum-auth-handler/authService'
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('auth')
 
 export default {
   name: 'ForgotPassword',
@@ -57,13 +58,16 @@ export default {
   }),
 
   methods: {
-    async forgotPassword () {
+    ...mapActions([
+      'forgotPassword',
+    ]),
+    async execForgotPassword () {
       if (!this.validate()) return
 
       const payload = {
         email: this.inputs.email.value,
       }
-      await authService.forgotPassword(payload)
+      await this.forgotPassword(payload)
     },
     validate () {
       return this.$refs.form.validate()

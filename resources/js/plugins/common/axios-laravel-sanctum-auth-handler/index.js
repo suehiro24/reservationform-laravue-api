@@ -11,7 +11,7 @@ const enableAxiosLaravelSanctumAuthHandler = (axios, store, router) => {
         error.response &&
         (error.response.status === 401 || error.response.status === 419)
       ) {
-        store.dispatch('auth/logout')
+        store.dispatch('auth/clearUser')
       }
 
       return Promise.reject(error)
@@ -33,8 +33,7 @@ const enableAxiosLaravelSanctumAuthHandler = (axios, store, router) => {
       // 認証ユーザ再取得
       const authUserReloaded = await store.dispatch('auth/getAuthUser')
       if (!authUserReloaded) {
-        // TODO: 画面用認証不可メッセージ
-
+        store.dispatch('flashMsg/pushErrorMessage', 'ログインが必要なページの表示をキャンセルしました')
         // ログイン画面にリダイレクト
         next(redirectToLoginWithRequiredPath)
       }

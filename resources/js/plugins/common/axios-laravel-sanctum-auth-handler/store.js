@@ -22,18 +22,18 @@ const getters = {
 }
 
 const actions = {
-  logout ({ commit }) {
+  logout ({ commit, dispatch }) {
     return authService.logout()
       .then(() => {
-        commit('setUser', null)
+        dispatch('clearUser')
+        dispatch('flashMsg/pushSuccessMessage', 'ログアウトしました。', { root: true })
         router.push({ path: '/login' })
       })
       .catch((e) => {
-        // TODO: 画面用エラーメッセージ
-        console.error(e)
+        dispatch('flashMsg/pushErrorMessage', 'ログアウトが失敗しました。もう一度お試しください。', { root: true })
       })
   },
-  login ({ commit }, payload) {
+  login ({ commit, dispatch }, payload) {
     return authService.login(payload)
       .then(response => {
         const authUser = response.data.authUser
@@ -45,57 +45,66 @@ const actions = {
               throw failure
             }
           })
-          // TODO: 画面用メール認証未済メッセージ
-          console.error('メール認証未済')
+          dispatch('flashMsg/pushErrorMessage', 'メール認証が行われていないためログインできません。', { root: true })
           return
         }
 
-        console.log('setUser: ', authUser)
-        commit('setUser', authUser)
+        dispatch('setUser', authUser)
         router.push('/management')
       })
       .catch((e) => {
-        // TODO: 画面用エラーメッセージ
-        console.error(e)
-        console.log('setUser: ', null)
-        commit('setUser', null)
+        dispatch('flashMsg/pushErrorMessage', 'ログインが失敗しました。もう一度お試しください。', { root: true })
+        dispatch('clearUser')
       })
   },
   register ({ commit, dispatch }, payload) {
     return authService.registerUser(payload)
       .then(async response => {
+        dispatch('flashMsg/pushSuccessMessage', 'ユーザ登録が成功しました。', { root: true })
         await dispatch('login', payload)
       })
       .catch((e) => {
-        // TODO: 画面用エラーメッセージ
-        console.error(e)
+        dispatch('flashMsg/pushErrorMessage', 'ユーザ登録が失敗しました。もう一度お試しください。', { root: true })
+      })
+  },
+  forgotPassword ({ commit, dispatch }, payload) {
+    return authService.forgotPassword(payload)
+      .then(async response => {
+        dispatch('flashMsg/pushSuccessMessage', 'パスワードリセット用メールを送信しました。', { root: true })
+      })
+      .catch((e) => {
+        dispatch('flashMsg/pushErrorMessage', 'パスワードリセット用メールの送信が失敗しました。もう一度お試しください。', { root: true })
       })
   },
   resetPassword ({ commit, dispatch }, payload) {
     return authService.resetPassword(payload)
       .then(async response => {
+        dispatch('flashMsg/pushSuccessMessage', 'パスワードのリセットが成功しました。', { root: true })
         await dispatch('login', payload)
       })
       .catch((e) => {
-        // TODO: 画面用エラーメッセージ
-        console.error(e)
+        dispatch('flashMsg/pushErrorMessage', 'パスワードのリセットが失敗しました。もう一度お試しください。', { root: true })
       })
   },
-  getAuthUser ({ commit }) {
+  getAuthUser ({ commit, dispatch }) {
     return authService.getAuthUser()
       .then(response => {
         const authUser = response.data.authUser
-        console.log('setUser: ', authUser)
-        commit('setUser', authUser)
+        dispatch('setUser', authUser)
         return authUser
       })
       .catch((e) => {
-        // TODO: 画面用エラーメッセージ
-        console.error(e)
-        console.log('setUser: ', null)
-        commit('setUser', null)
+        dispatch('clearUser')
         return null
       })
+  },
+  setUser ({ commit }, authUser) {
+    console.log('setUser: ', authUser)
+    commit('setUser', authUser)
+  },
+  clearUser ({ commit }) {
+    console.log('setUser: ', null)
+    commit('setUser', null)
   },
 }
 
