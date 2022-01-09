@@ -1,3 +1,7 @@
+// See: https://router.vuejs.org/guide/advanced/navigation-failures.html#detecting-navigation-failures
+import VueRouter from 'vue-router'
+const { isNavigationFailure, NavigationFailureType } = VueRouter
+
 import router from '@/router'
 import authService from '@/plugins/common/axios-laravel-sanctum-auth-handler/authService'
 
@@ -33,6 +37,19 @@ const actions = {
     return authService.login(payload)
       .then(response => {
         const authUser = response.data.authUser
+
+        if (!authUser.email_verified_at) {
+          router.push('/login').catch(failure => {
+            // 同ページの遷移エラー(NavigationDuplicatedError)は握りつぶす
+            if (!isNavigationFailure(failure, NavigationFailureType.duplicated)) {
+              throw failure
+            }
+          })
+          // TODO: 画面用メール認証未済メッセージ
+          console.error('メール認証未済')
+          return
+        }
+
         console.log('setUser: ', authUser)
         commit('setUser', authUser)
         router.push('/management')
