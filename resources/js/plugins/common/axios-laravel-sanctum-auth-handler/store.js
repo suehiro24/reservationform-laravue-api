@@ -24,6 +24,25 @@ const actions = {
         commit('setUser', null)
         router.push({ path: '/login' })
       })
+      .catch((e) => {
+        // TODO: 画面用エラーメッセージ
+        console.error(e)
+      })
+  },
+  login ({ commit }, payload) {
+    return authService.login(payload)
+      .then(response => {
+        const authUser = response.data.authUser
+        console.log('setUser: ', authUser)
+        commit('setUser', authUser)
+        router.push('/management')
+      })
+      .catch((e) => {
+        // TODO: 画面用エラーメッセージ
+        console.error(e)
+        console.log('setUser: ', null)
+        commit('setUser', null)
+      })
   },
   register ({ commit, dispatch }, payload) {
     return authService.registerUser(payload)
@@ -38,10 +57,17 @@ const actions = {
   getAuthUser ({ commit }) {
     return authService.getAuthUser()
       .then(response => {
-        commit('setUser', response.data.authUser)
+        const authUser = response.data.authUser
+        console.log('setUser: ', authUser)
+        commit('setUser', authUser)
+        return authUser
       })
-      .catch(() => {
+      .catch((e) => {
+        // TODO: 画面用エラーメッセージ
+        console.error(e)
+        console.log('setUser: ', null)
         commit('setUser', null)
+        return null
       })
   },
 }

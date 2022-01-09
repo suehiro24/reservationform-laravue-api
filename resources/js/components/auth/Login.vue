@@ -32,7 +32,7 @@
             <v-btn
               :disabled="!valid"
               color="primary"
-              @click="login"
+              @click="execLogin"
             >
               ログイン
             </v-btn>
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import authService from '@/plugins/common/axios-laravel-sanctum-auth-handler/authService'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('auth')
 
@@ -77,19 +76,14 @@ export default {
   }),
   methods: {
     ...mapActions([
-      'getAuthUser',
+      'login',
     ]),
-    async login () {
+    async execLogin () {
       const payload = {
         email: this.inputs.email.value,
         password: this.inputs.password.value,
       }
-      await authService.login(payload)
-
-      const authUser = await this.getAuthUser()
-      if (authUser) {
-        this.$router.push('/management')
-      }
+      await this.login(payload)
     },
   },
 }

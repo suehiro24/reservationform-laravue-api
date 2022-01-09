@@ -1,7 +1,7 @@
 export default {
   async login (payload) {
     await axios.get('/sanctum/csrf-cookie')
-    await axios.post('/login', payload)
+    return await axios.post('/login', payload)
   },
   async logout () {
     await axios.post('/logout')
