@@ -36,6 +36,13 @@
             >
               ログイン
             </v-btn>
+
+            <v-btn
+              color="primary"
+              to="/forgot-password"
+            >
+              パスワードを忘れた場合
+            </v-btn>
           </v-col>
         </v-row>
 

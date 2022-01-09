@@ -71,6 +71,16 @@ const actions = {
         console.error(e)
       })
   },
+  resetPassword ({ commit, dispatch }, payload) {
+    return authService.resetPassword(payload)
+      .then(async response => {
+        await dispatch('login', payload)
+      })
+      .catch((e) => {
+        // TODO: 画面用エラーメッセージ
+        console.error(e)
+      })
+  },
   getAuthUser ({ commit }) {
     return authService.getAuthUser()
       .then(response => {
