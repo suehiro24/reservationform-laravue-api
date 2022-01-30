@@ -43,6 +43,28 @@ class ApptSlotRepositoryTest extends TestCase
         $this->assertEquals(5, count($apptSlots));
     }
 
+    public function testGetByCourse(): void
+    {
+        $courseElq = CourseElq::factory()->create();
+        ApptSlotElq::factory()->for($courseElq)->count(5)->create();
+        $course = Course::reconstruct(
+            $courseElq->id,
+            $courseElq->name,
+            $courseElq->price,
+            $courseElq->capacity,
+            $courseElq->location,
+            $courseElq->description,
+            $courseElq->is_finished
+        );
+        $apptSlots = $this->repository::getByCourse($course);
+
+        $this->assertTrue(
+            $apptSlots->every(function (ApptSlot $apptSlot) use ($courseElq) {
+                return $apptSlot->getCourse()->getId() === $courseElq->id;
+            })
+        );
+    }
+
     public function testGetAllDbEmpty(): void
     {
         $apptSlots = $this->repository::getAll();

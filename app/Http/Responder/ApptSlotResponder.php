@@ -46,7 +46,7 @@ class ApptSlotResponder
      * @param int $status
      * @return JsonResponse
      */
-    public function withEntityCollection(Collection $apptSlots, $status = Response::HTTP_OK): JsonResponse
+    public function withEntityCollection($apptSlots, $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse(
             [

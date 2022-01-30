@@ -47,6 +47,40 @@ class ApptSlotRepository implements IApptSlotRepository
     }
 
     /**
+     * Get Appointment-Slot entities in spesific Course.
+     *
+     * @return ApptSlot[]
+     */
+    public static function getByCourse(Course $course)
+    {
+        $apptSlotElqCollection = ApptSlotElq::query()->where('course_id', $course->getId())->get();
+
+        return $apptSlotElqCollection->map(function ($apptSlotElq) {
+            $course = Course::reconstruct(
+                $apptSlotElq->courseElq->id,
+                $apptSlotElq->courseElq->name,
+                $apptSlotElq->courseElq->price,
+                $apptSlotElq->courseElq->capacity,
+                $apptSlotElq->courseElq->location,
+                $apptSlotElq->courseElq->description,
+                $apptSlotElq->courseElq->is_finished
+            );
+
+            return ApptSlot::reconstruct(
+                $apptSlotElq->id,
+                $course,
+                $apptSlotElq->name,
+                $apptSlotElq->price,
+                $apptSlotElq->capacity,
+                $apptSlotElq->location,
+                $apptSlotElq->note,
+                $apptSlotElq->reservations,
+                new TimeSlot($apptSlotElq->start, $apptSlotElq->end)
+            );
+        });
+    }
+
+    /**
      * Get specific Appointment-Slot entity.
      *
      * @return ApptSlot[]

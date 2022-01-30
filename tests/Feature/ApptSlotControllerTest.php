@@ -35,6 +35,25 @@ class ApptSlotControllerTest extends TestCase
     }
 
     /**
+     * 予約枠一覧取得テスト. コース絞り込みあり
+     *
+     * @return void
+     */
+    public function testIndexFilteredCourse()
+    {
+        $courseElq = CourseElq::factory()->create();
+        ApptSlotElq::factory()->for($courseElq)->count(5)->create();
+        $response = $this->get('api/appt-slot/index/' . $courseElq->id);
+        $response->assertOK();
+        $response->assertJsonCount(5, 'apptSlots');
+
+        $slotsNotInTargetCourse = array_filter($response['apptSlots'], function ($apptSlot) use ($courseElq) {
+            $apptSlot['id'] !== $courseElq->id;
+        });
+        $this->assertEquals(0, count($slotsNotInTargetCourse));
+    }
+
+    /**
      * 予約枠新規作成テスト
      *
      * @return void

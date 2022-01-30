@@ -35,14 +35,15 @@ class ApptSlotController
     /**
      * 予約枠一覧の取得
      * @param ApptSlotIndex $usecase
+     * @param int|null $courseId
      * @return JsonResponse
      */
-    public function index(ApptSlotIndex $usecase): JsonResponse
+    public function index(ApptSlotIndex $usecase, ?int $courseId = null): JsonResponse
     {
         // throw new AbnormalResponseException(ResultCode::Failed, 'test error');
 
         try {
-            $apptSlots = $usecase->__invoke();
+            $apptSlots = $usecase->__invoke($courseId);
         } catch (Exception $e) {
             logs()->error($e);
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);

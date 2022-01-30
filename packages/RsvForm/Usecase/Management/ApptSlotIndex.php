@@ -2,26 +2,40 @@
 
 namespace RsvForm\Usecase\Management;
 
-use Illuminate\Support\Collection;
+use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 use RsvForm\Domain\Repositories\IApptSlotRepository;
+use RsvForm\Domain\Repositories\ICourseRepository;
 
 class ApptSlotIndex
 {
      /**
      * @var IApptSlotRepository
      */
-    private $repository;
+    private $apptSlotRepository;
 
-    public function __construct(IApptSlotRepository $repository)
+     /**
+     * @var ICourseRepository
+     */
+    private $courseRepository;
+
+    public function __construct(IApptSlotRepository $apptSlotRepository, ICourseRepository $courseRepository)
     {
-        $this->repository = $repository;
+        $this->apptSlotRepository = $apptSlotRepository;
+        $this->courseRepository = $courseRepository;
     }
 
     /**
-     * @return Collection
+     * @param int|null $courseId
+     * @return ApptSlot[]|Collection
      */
-    public function __invoke(): Collection
+    public function __invoke(?int $courseId = null)
     {
-        return $this->repository->getAll();
+
+        if (is_null($courseId)) {
+            return $this->apptSlotRepository::getAll();
+        } else {
+            $course = $this->courseRepository::find($courseId);
+            return $this->apptSlotRepository::getByCourse($course);
+        }
     }
 }

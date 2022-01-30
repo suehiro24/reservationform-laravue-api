@@ -4,15 +4,23 @@ namespace RsvForm\Domain\Repositories;
 
 use Illuminate\Support\Collection;
 use RsvForm\Domain\Models\ApptSlot\ApptSlot;
+use RsvForm\Domain\Models\Course\Course;
 
 interface IApptSlotRepository
 {
     /**
      * Get all Appointment-Slot entities.
      *
-     * @return ApptSlot[]
+     * @return ApptSlot[]|Collection
      */
-    public static function getAll(): Collection;
+    public static function getAll();
+
+    /**
+     * Get Appointment-Slot entities in spesific Course.
+     *
+     * @return  ApptSlot[]|Collection
+     */
+    public static function getByCourse(Course $course);
 
     /**
      * Find specific Appointment-Slot entity.
