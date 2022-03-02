@@ -146,6 +146,7 @@ class ApptSlotRepository implements IApptSlotRepository
         $apptSlotElq->reservations = $apptSlot->getReservations();
         $apptSlotElq->start = $apptSlot->getTimeSlot()->getStart();
         $apptSlotElq->end = $apptSlot->getTimeSlot()->getEnd();
+        $apptSlotElq->is_full = $apptSlot->getIsFull();
 
         $apptSlotElq->save();
 

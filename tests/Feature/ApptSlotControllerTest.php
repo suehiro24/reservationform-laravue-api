@@ -145,4 +145,24 @@ class ApptSlotControllerTest extends TestCase
         $this->assertEquals(($apptSlotElq->reservations + 1), $apptSlotElqReserved->reservations);
         $this->assertEquals(($apptSlotElq->reservations + 1), $response['apptSlot']['reservations']);
     }
+
+    public function testReservationIsFull()
+    {
+        $courseElq = CourseElq::factory()->create();
+        $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create([
+            'capacity' => 1,
+            'reservations' => 0
+        ]);
+        $data = [
+            'id' => $apptSlotElq->id,
+            '氏名' => 'test name',
+            'メールアドレス' => 'test e-mail address',
+            '備考' => 'test note',
+        ];
+        $response = $this->post('api/appt-slot/reserve', $data);
+        $apptSlotElqReserved = ApptSlotElq::find($apptSlotElq->id);
+        $response->assertOk();
+        $this->assertEquals($apptSlotElqReserved->reservations, 1);
+        $this->assertEquals($apptSlotElqReserved->is_full, true);
+    }
 }
