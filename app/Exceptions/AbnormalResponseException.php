@@ -12,10 +12,10 @@ class AbnormalResponseException extends Exception
     private ResultCode $resultCode;
 
     /**
-     * @param string $resultCode 結果コード
-     * @param string $message ログ用メッセージ
-     * @param integer $code [optional] The Exception code.
-     * @param Throwable|null $previous [optional] The previous throwable used for the exception chaining.
+     * @param  string  $resultCode 結果コード
+     * @param  string  $message ログ用メッセージ
+     * @param  int  $code [optional] The Exception code.
+     * @param  Throwable|null  $previous [optional] The previous throwable used for the exception chaining.
      */
     public function __construct(
         ResultCode $resultCode,
@@ -50,7 +50,7 @@ class AbnormalResponseException extends Exception
                 'abnormalContents' => [
                     'resultCode' => $this->resultCode->value,
                     'resultMessage' => $this->resultCode->resultMessage(),
-                ]
+                ],
             ],
             Response::HTTP_OK,
         );

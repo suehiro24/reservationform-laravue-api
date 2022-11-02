@@ -20,7 +20,7 @@ class CourseElqFactory extends Factory
             'location' => $this->faker->text(100),
             'description' => $this->faker->text(100),
             'is_finished' => false,
-            'is_deleted' => false
+            'is_deleted' => false,
         ];
     }
 }

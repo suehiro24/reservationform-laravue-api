@@ -82,7 +82,7 @@ class CourseControllerTest extends TestCase
     {
         $courseElq = CourseElq::factory()->create();
         $data = [
-            'id' => $courseElq->id
+            'id' => $courseElq->id,
         ];
         $response = $this->post('api/course/delete', $data);
         $courseElqDeleted = CourseElq::find($courseElq->id);

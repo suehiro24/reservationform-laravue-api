@@ -25,6 +25,7 @@ class AcceptReservation
         $apptSlot = $this->repository::find($posts['id']);
         unset($posts['id']);
         $apptSlotReserved = ApptSlot::reserve($apptSlot, $posts);
+
         return $this->repository->persist($apptSlotReserved);
     }
 }

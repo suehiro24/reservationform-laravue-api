@@ -9,66 +9,75 @@ final class ApptSlot
 {
     /**
      * 予約枠ID
+     *
      * @var int|null
      */
     private ?int $id;
 
     /**
      * コース
+     *
      * @var Course
      */
     private Course $course;
 
     /**
      * 予約枠名
+     *
      * @var string
      */
     private string $name;
 
     /**
      * 料金
+     *
      * @var int|null
      */
     private ?int $price;
 
     /**
      * 定員
+     *
      * @var int
      */
     private int $capacity;
 
     /**
      * 会場
+     *
      * @var string|null
      */
     private ?string $location;
 
     /**
      * 予約者数
+     *
      * @var int
      */
     private int $reservations;
 
     /**
      * 時間枠(開始, 終了日時)
+     *
      * @var TimeSlot
      */
     private TimeSlot $timeSlot;
 
     /**
      * 満員フラグ
-     * @var boolean
+     *
+     * @var bool
      */
     private bool $isFull;
 
     private function __construct(
-        ?int $id = null,
+        ?int $id,
         Course $course,
         string $name,
-        ?int $price = null,
+        ?int $price,
         int $capacity,
-        ?string $location = null,
-        ?string $note = null,
+        ?string $location,
+        ?string $note,
         int $reservations,
         TimeSlot $timeSlot,
     ) {
@@ -142,10 +151,10 @@ final class ApptSlot
         int $id,
         Course $course,
         string $name,
-        ?int $price = null,
+        ?int $price,
         int $capacity,
-        ?string $location = null,
-        ?string $note = null,
+        ?string $location,
+        ?string $note,
         int $reservations,
         TimeSlot $timeSlot
     ): ApptSlot {
@@ -165,11 +174,12 @@ final class ApptSlot
     /**
      * 予約受付
      *
-     * @param ApptSlot $apptSlot
-     * @param array $userInfo
+     * @param  ApptSlot  $apptSlot
+     * @param  array  $userInfo
      * @return ApptSlot
      */
-    public static function reserve(ApptSlot $apptSlot, array $userInfo): ApptSlot {
+    public static function reserve(ApptSlot $apptSlot, array $userInfo): ApptSlot
+    {
         $noteUpdated = $apptSlot->getNote().'\n---------------';
         foreach ($userInfo as $key => $value) {
             $noteUpdated = $noteUpdated.'\n ●'.$key.'\n'.$value;

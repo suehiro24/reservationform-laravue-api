@@ -17,7 +17,7 @@ class CourseResponder
     private $serializer;
 
     /**
-     * @param CourseJsonSerializer $serializer
+     * @param  CourseJsonSerializer  $serializer
      */
     public function __construct(CourseJsonSerializer $serializer)
     {
@@ -26,15 +26,16 @@ class CourseResponder
 
     /**
      * エンティティでレスポンス
-     * @param Course $course
-     * @param int $status
+     *
+     * @param  Course  $course
+     * @param  int  $status
      * @return JsonResponse
      */
     public function withEntity(Course $course, $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse(
             [
-                'course' => $this->serializer->serialize($course)
+                'course' => $this->serializer->serialize($course),
             ],
             $status
         );
@@ -42,15 +43,16 @@ class CourseResponder
 
     /**
      * エンティティのコレクションでレスポンス
-     * @param Collection|Course[] $courses
-     * @param int $status
+     *
+     * @param  Collection|Course[]  $courses
+     * @param  int  $status
      * @return JsonResponse
      */
     public function withEntityCollection(Collection $courses, $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse(
             [
-                'courses' => $this->serializer->serializeCollection($courses)
+                'courses' => $this->serializer->serializeCollection($courses),
             ],
             $status
         );
@@ -58,8 +60,9 @@ class CourseResponder
 
     /**
      * エラーのレスポンス
-     * @param Exception $e
-     * @param int $status
+     *
+     * @param  Exception  $e
+     * @param  int  $status
      * @return JsonResponse
      */
     public function error(Exception $e, $status = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse

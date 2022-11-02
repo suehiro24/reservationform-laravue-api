@@ -17,7 +17,7 @@ class ApptSlotResponder
     private $serializer;
 
     /**
-     * @param ApptSlotJsonSerializer $serializer
+     * @param  ApptSlotJsonSerializer  $serializer
      */
     public function __construct(ApptSlotJsonSerializer $serializer)
     {
@@ -26,15 +26,16 @@ class ApptSlotResponder
 
     /**
      * エンティティでレスポンス
-     * @param ApptSlot $apptSlot
-     * @param int $status
+     *
+     * @param  ApptSlot  $apptSlot
+     * @param  int  $status
      * @return JsonResponse
      */
     public function withEntity(ApptSlot $apptSlot, $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse(
             [
-                'apptSlot' => $this->serializer->serialize($apptSlot)
+                'apptSlot' => $this->serializer->serialize($apptSlot),
             ],
             $status
         );
@@ -42,15 +43,16 @@ class ApptSlotResponder
 
     /**
      * エンティティのコレクションでレスポンス
-     * @param Collection|ApptSlot[] $apptSlots
-     * @param int $status
+     *
+     * @param  Collection|ApptSlot[]  $apptSlots
+     * @param  int  $status
      * @return JsonResponse
      */
     public function withEntityCollection($apptSlots, $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse(
             [
-                'apptSlots' => $this->serializer->serializeCollection($apptSlots)
+                'apptSlots' => $this->serializer->serializeCollection($apptSlots),
             ],
             $status
         );
@@ -58,8 +60,9 @@ class ApptSlotResponder
 
     /**
      * エラーのレスポンス
-     * @param Exception $e
-     * @param int $status
+     *
+     * @param  Exception  $e
+     * @param  int  $status
      * @return JsonResponse
      */
     public function error(Exception $e, $status = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse

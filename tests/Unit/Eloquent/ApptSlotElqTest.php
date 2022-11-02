@@ -10,6 +10,7 @@ use Tests\TestCase;
 class ApptSlotElqTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $seed = true;
 
     public function setUp(): void

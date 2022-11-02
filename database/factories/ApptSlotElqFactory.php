@@ -27,4 +27,3 @@ class ApptSlotElqFactory extends Factory
         ];
     }
 }
-

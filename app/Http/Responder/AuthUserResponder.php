@@ -23,7 +23,7 @@ class AuthUserResponder implements LoginResponse
             return new JsonResponse(
                 [
                     'two_factor' => false,
-                    'authUser' => Auth::user()
+                    'authUser' => Auth::user(),
                 ],
                 Response::HTTP_OK
             );

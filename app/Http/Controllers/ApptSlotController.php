@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Exceptions\AbnormalResponseException;
 use App\Exceptions\ResultCode;
 use App\Http\Responder\ApptSlotResponder;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +24,8 @@ class ApptSlotController
 
     /**
      * コンストラクタ
-     * @param ApptSlotResponder $responder
+     *
+     * @param  ApptSlotResponder  $responder
      */
     public function __construct(ApptSlotResponder $responder)
     {
@@ -34,8 +34,9 @@ class ApptSlotController
 
     /**
      * 予約枠一覧の取得
-     * @param ApptSlotIndex $usecase
-     * @param int|null $courseId
+     *
+     * @param  ApptSlotIndex  $usecase
+     * @param  int|null  $courseId
      * @return JsonResponse
      */
     public function index(ApptSlotIndex $usecase, ?int $courseId = null): JsonResponse
@@ -46,15 +47,18 @@ class ApptSlotController
             $apptSlots = $usecase->__invoke($courseId);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
         return $this->responder->withEntityCollection($apptSlots);
     }
 
     /**
      * 予約枠の新規作成
-     * @param Request $request
-     * @param ApptSlotCreate $usecase
+     *
+     * @param  Request  $request
+     * @param  ApptSlotCreate  $usecase
      * @return JsonResponse
      */
     public function new(Request $request, ApptSlotCreate $usecase): JsonResponse
@@ -65,6 +69,7 @@ class ApptSlotController
             $apptSlot = $usecase->__invoke($posts);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -79,6 +84,7 @@ class ApptSlotController
             $apptSlot = $usecase->__invoke($posts);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -96,6 +102,7 @@ class ApptSlotController
             }
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -113,6 +120,7 @@ class ApptSlotController
             $apptSlot = $usecase->__invoke($posts);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 

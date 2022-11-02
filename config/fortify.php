@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
 
 return [
@@ -62,7 +61,7 @@ return [
     */
 
     // See: https://laravelvuespa.com/authentication/laravel-authentication#setting-up-fortify
-    'home' => env('SPA_URL') . '/management',
+    'home' => env('SPA_URL').'/management',
 
     /*
     |--------------------------------------------------------------------------

@@ -7,7 +7,7 @@ use RsvForm\Domain\Repositories\ICourseRepository;
 
 class CourseIndex
 {
-     /**
+    /**
      * @var ICourseRepository
      */
     private $repository;

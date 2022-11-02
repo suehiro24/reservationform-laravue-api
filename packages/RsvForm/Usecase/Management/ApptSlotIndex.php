@@ -8,12 +8,12 @@ use RsvForm\Domain\Repositories\ICourseRepository;
 
 class ApptSlotIndex
 {
-     /**
+    /**
      * @var IApptSlotRepository
      */
     private $apptSlotRepository;
 
-     /**
+    /**
      * @var ICourseRepository
      */
     private $courseRepository;
@@ -25,16 +25,16 @@ class ApptSlotIndex
     }
 
     /**
-     * @param int|null $courseId
+     * @param  int|null  $courseId
      * @return ApptSlot[]|Collection
      */
     public function __invoke(?int $courseId = null)
     {
-
         if (is_null($courseId)) {
             return $this->apptSlotRepository::getAll();
         } else {
             $course = $this->courseRepository::find($courseId);
+
             return $this->apptSlotRepository::getByCourse($course);
         }
     }

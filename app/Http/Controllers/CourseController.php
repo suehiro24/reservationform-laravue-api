@@ -21,7 +21,8 @@ class CourseController
 
     /**
      * コンストラクタ
-     * @param CourseResponder $responder
+     *
+     * @param  CourseResponder  $responder
      */
     public function __construct(CourseResponder $responder)
     {
@@ -30,7 +31,8 @@ class CourseController
 
     /**
      * コース一覧の取得
-     * @param CourseIndex $usecase
+     *
+     * @param  CourseIndex  $usecase
      * @return JsonResponse
      */
     public function index(CourseIndex $usecase): JsonResponse
@@ -39,15 +41,18 @@ class CourseController
             $courses = $usecase->__invoke();
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
         return $this->responder->withEntityCollection($courses);
     }
 
     /**
      * コースの新規作成
-     * @param Request $request
-     * @param CourseCreate $usecase
+     *
+     * @param  Request  $request
+     * @param  CourseCreate  $usecase
      * @return JsonResponse
      */
     public function new(Request $request, CourseCreate $usecase): JsonResponse
@@ -58,6 +63,7 @@ class CourseController
             $course = $usecase->__invoke($posts);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -72,6 +78,7 @@ class CourseController
             $course = $usecase->__invoke($posts);
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -89,6 +96,7 @@ class CourseController
             }
         } catch (Exception $e) {
             logs()->error($e);
+
             return $this->responder->error($e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 

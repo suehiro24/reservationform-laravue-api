@@ -11,6 +11,7 @@ use Tests\TestCase;
 class CourseRepositoryTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $seed = true;
 
     /**

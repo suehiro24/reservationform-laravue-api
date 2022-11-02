@@ -29,6 +29,7 @@ class CourseCreate
             $posts['location'],
             $posts['description'],
         );
+
         return $this->repository->persist($course);
     }
 }

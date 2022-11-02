@@ -22,8 +22,7 @@ class ApptSlotUpdate
     public function __construct(
         ICourseRepository $courseRepository,
         IApptSlotRepository $apptSlotRepository
-    )
-    {
+    ) {
         $this->courseRepository = $courseRepository;
         $this->apptSlotRepository = $apptSlotRepository;
     }
@@ -45,6 +44,7 @@ class ApptSlotUpdate
             $posts['reservations'],
             new TimeSlot($posts['start'], $posts['end'])
         );
+
         return $this->apptSlotRepository->persist($apptSlot);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Exceptions;
 
-interface IResultCode {
+interface IResultCode
+{
     public function resultMessage(): string;
 }
 
@@ -12,9 +13,8 @@ enum ResultCode: int implements IResultCode
 
     public function resultMessage(): string
     {
-        return match($this) {
+        return match ($this) {
             static::Failed => 'エラーです。'
         };
     }
 }
-

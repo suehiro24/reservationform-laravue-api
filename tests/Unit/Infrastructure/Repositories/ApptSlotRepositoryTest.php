@@ -16,6 +16,7 @@ use Tests\TestCase;
 class ApptSlotRepositoryTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $seed = true;
 
     /**

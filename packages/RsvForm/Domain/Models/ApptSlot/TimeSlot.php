@@ -5,26 +5,26 @@ namespace RsvForm\Domain\Models\ApptSlot;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
-use Illuminate\Support\Facades\Date;
-use RsvForm\Domain\Models\Course\Course;
 
 final class TimeSlot
 {
     /**
      * 開始日時
+     *
      * @var DateTime
      */
     private DateTime $start;
 
     /**
      * 終了日時
+     *
      * @var DateTime
      */
     private DateTime $end;
 
     /**
-     * @param string|DateTime $start
-     * @param string $end
+     * @param  string|DateTime  $start
+     * @param  string  $end
      */
     public function __construct(
         string|DateTime $start,
@@ -66,10 +66,10 @@ final class TimeSlot
     /**
      * ISO8601形式の日付文字列をDate型に変換する (拡張形式のみ)
      *
-     * @param string $isoDatetime The string has the format of ISO8601(extended format).
+     * @param  string  $isoDatetime The string has the format of ISO8601(extended format).
      * @return Datetime
      */
-    private static function validateIso8601Date (string $isoDatetime): DateTime
+    private static function validateIso8601Date(string $isoDatetime): DateTime
     {
         $matches = [];
         $isValidFormat = preg_match(
@@ -105,6 +105,6 @@ final class TimeSlot
             return new Carbon($isoDatetime);
         } else {
             throw new Exception('日付の形式に誤りがあります。ISO8601(Extended format)での入力を行ってください。');
-        };
+        }
     }
 }

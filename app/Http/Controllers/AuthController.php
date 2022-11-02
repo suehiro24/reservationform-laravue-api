@@ -10,14 +10,15 @@ class AuthController
 {
     /**
      * 認証ユーザの取得
-     * @param ApptSlotIndex $usecase
+     *
+     * @param  ApptSlotIndex  $usecase
      * @return JsonResponse
      */
     public function showAuthUser(): JsonResponse
     {
         return new JsonResponse(
             [
-                'authUser' => Auth::user()
+                'authUser' => Auth::user(),
             ],
             Response::HTTP_OK
         );

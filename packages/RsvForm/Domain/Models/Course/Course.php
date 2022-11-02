@@ -8,53 +8,60 @@ final class Course
 {
     /**
      * コースID
+     *
      * @var int|null
      */
     private ?int $id;
 
     /**
      * コース名
+     *
      * @var string
      */
     private string $name;
 
     /**
      * 料金
+     *
      * @var int|null
      */
     private ?int $price;
 
     /**
      * 定員
+     *
      * @var int
      */
     private int $capacity;
 
     /**
      * 会場
+     *
      * @var string|null
      */
     private ?string $location;
 
     /**
      * 説明文
+     *
      * @var string|null
      */
     private ?string $description;
 
     /**
      * 閉講フラグ
+     *
      * @var bool
      */
     private bool $isFinished;
 
     private function __construct(
-        ?int $id = null,
+        ?int $id,
         string $name,
-        ?int $price = null,
+        ?int $price,
         int $capacity,
-        ?string $location = null,
-        ?string $description = null,
+        ?string $location,
+        ?string $description,
         bool $isFinished,
     ) {
         // コースID
@@ -96,7 +103,7 @@ final class Course
 
     public static function create(
         string $name,
-        ?int $price = null,
+        ?int $price,
         int $capacity,
         ?string $location = null,
         ?string $description = null,
@@ -107,10 +114,10 @@ final class Course
     public static function reconstruct(
         int $id,
         string $name,
-        ?int $price = null,
+        ?int $price,
         int $capacity,
-        ?string $location = null,
-        ?string $description = null,
+        ?string $location,
+        ?string $description,
         bool $isFinished,
     ): Course {
         return new Course($id, $name, $price, $capacity, $location, $description, $isFinished);

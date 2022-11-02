@@ -43,7 +43,7 @@ class ApptSlotControllerTest extends TestCase
     {
         $courseElq = CourseElq::factory()->create();
         ApptSlotElq::factory()->for($courseElq)->count(5)->create();
-        $response = $this->get('api/appt-slot/index/' . $courseElq->id);
+        $response = $this->get('api/appt-slot/index/'.$courseElq->id);
         $response->assertOK();
         $response->assertJsonCount(5, 'apptSlots');
 
@@ -61,7 +61,7 @@ class ApptSlotControllerTest extends TestCase
     public function testNew()
     {
         $courseElq = CourseElq::factory()->create([
-            'name' => 'test course'
+            'name' => 'test course',
         ]);
 
         $start = new DateTime();
@@ -116,7 +116,7 @@ class ApptSlotControllerTest extends TestCase
         $courseElq = CourseElq::factory()->create();
         $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create();
         $data = [
-            'id' => $apptSlotElq->id
+            'id' => $apptSlotElq->id,
         ];
         $response = $this->post('api/appt-slot/delete', $data);
         $apptSlotElqDeleted = ApptSlotElq::find($apptSlotElq->id);
@@ -151,7 +151,7 @@ class ApptSlotControllerTest extends TestCase
         $courseElq = CourseElq::factory()->create();
         $apptSlotElq = ApptSlotElq::factory()->for($courseElq)->create([
             'capacity' => 1,
-            'reservations' => 0
+            'reservations' => 0,
         ]);
         $data = [
             'id' => $apptSlotElq->id,

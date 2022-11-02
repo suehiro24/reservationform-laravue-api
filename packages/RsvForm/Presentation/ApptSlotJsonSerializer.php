@@ -12,7 +12,7 @@ use RsvForm\Domain\Models\ApptSlot\ApptSlot;
 class ApptSlotJsonSerializer
 {
     /**
-     * @param ApptSlot $apptSlot
+     * @param  ApptSlot  $apptSlot
      * @return array
      */
     public function serialize(ApptSlot $apptSlot): array
@@ -33,7 +33,7 @@ class ApptSlotJsonSerializer
     }
 
     /**
-     * @param Collection|ApptSlot[] $apptSlots
+     * @param  Collection|ApptSlot[]  $apptSlots
      * @return array
      */
     public function serializeCollection(Collection $apptSlots): array

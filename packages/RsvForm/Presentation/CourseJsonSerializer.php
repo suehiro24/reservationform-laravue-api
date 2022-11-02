@@ -7,12 +7,11 @@ use RsvForm\Domain\Models\Course\Course;
 
 /**
  * JsonResponseのためのシリアライザ
- * @package N1215\LaraTodo\Presentations
  */
 class CourseJsonSerializer
 {
     /**
-     * @param Course $course
+     * @param  Course  $course
      * @return array
      */
     public function serialize(Course $course): array
@@ -29,7 +28,7 @@ class CourseJsonSerializer
     }
 
     /**
-     * @param Collection|Course[] $courses
+     * @param  Collection|Course[]  $courses
      * @return array
      */
     public function serializeCollection(Collection $courses): array

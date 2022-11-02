@@ -185,6 +185,7 @@ class ApptSlotRepository implements IApptSlotRepository
             // TODO: log::warn(予約枠削除済み)
             return true;
         }
+
         return $apptSlotElq->delete();
     }
 }

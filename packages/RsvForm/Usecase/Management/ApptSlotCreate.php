@@ -22,8 +22,7 @@ class ApptSlotCreate
     public function __construct(
         ICourseRepository $courseRepository,
         IApptSlotRepository $apptSlotRepository
-    )
-    {
+    ) {
         $this->courseRepository = $courseRepository;
         $this->apptSlotRepository = $apptSlotRepository;
     }
@@ -33,11 +32,12 @@ class ApptSlotCreate
      */
     public function __invoke($posts): ApptSlot
     {
-        $course = $this->courseRepository::find($posts["courseId"]);
+        $course = $this->courseRepository::find($posts['courseId']);
         $apptSlot = ApptSlot::create(
             $course,
             new TimeSlot($posts['start'], $posts['end'])
         );
+
         return $this->apptSlotRepository->persist($apptSlot);
     }
 }

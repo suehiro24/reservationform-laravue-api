@@ -49,7 +49,9 @@ class CourseRepository implements ICourseRepository
             ->where('id', $id)
             ->first();
 
-        if (is_null($courseElq)) return null;
+        if (is_null($courseElq)) {
+            return null;
+        }
 
         return Course::reconstruct(
             $courseElq->id,
@@ -70,7 +72,6 @@ class CourseRepository implements ICourseRepository
      */
     public static function persist(Course $course): Course
     {
-
         if (is_null($course->getId())) {
             $courseElq = new CourseElq();
         } else {
@@ -100,12 +101,13 @@ class CourseRepository implements ICourseRepository
     /**
      * Delete Course entity.
      *
-     * @return boolean
+     * @return bool
      */
     public static function delete(int $id): bool
     {
         $courseElq = CourseElq::find($id);
         $courseElq->is_deleted = true;
+
         return $courseElq->save();
     }
 }

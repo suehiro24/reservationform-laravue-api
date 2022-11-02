@@ -31,6 +31,7 @@ class CourseUpdate
             $posts['description'],
             $posts['isFinished'],
         );
+
         return $this->repository->persist($course);
     }
 }
