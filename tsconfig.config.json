@@ -4,6 +4,6 @@
   "compilerOptions": {
     "strict": true,
     "composite": true,
-    "types": ["node"]
+    "types": ["node", "vuetify"]
   }
 }
