@@ -4,12 +4,11 @@ export const routes = [
     name: 'Login',
     component: () => import('@/views/auth/LoginForm.vue'),
   },
-  // {
-  //   path: '/register',
-  //   name: 'Register',
-  //   // meta: { requiresAuth: true },
-  //   component: () => import('@/components/auth/Register'),
-  // },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/auth/RegisterForm.vue'),
+  },
   // {
   //   path: '/reset-password',
   //   name: 'ResetPassword',
