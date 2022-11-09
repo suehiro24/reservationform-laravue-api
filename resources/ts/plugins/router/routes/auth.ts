@@ -14,9 +14,9 @@ export const routes = [
     name: 'ForgotPassword',
     component: () => import('@/views/auth/ForgotPasswordForm.vue'),
   },
-  // {
-  //   path: '/forgot-password',
-  //   name: 'ForgotPassword',
-  //   component: () => import('@/components/auth/ForgotPassword'),
-  // },
+  {
+    path: '/reset-password',
+    name: 'ResetPassword',
+    component: () => import('@/views/auth/ResetPasswordForm.vue'),
+  },
 ]
