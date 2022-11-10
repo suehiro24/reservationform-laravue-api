@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { useAuth } from '@/composition/auth'
+import LogoutBtn from './auth/LogoutBtn.vue'
+
+const { authenticated, logout } = useAuth()
 </script>
 
 <template>
@@ -7,7 +10,8 @@ import { RouterLink } from 'vue-router'
     <!-- <VAppBarNavIcon></VAppBarNavIcon> -->
     <VToolbarTitle>予約フォーム</VToolbarTitle>
     <VSpacer />
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about" class="mx-5">About</RouterLink>
+    <VBtn variant="text" to="/">Home</VBtn>
+    <VBtn variant="text" to="/about" class="mx-5">About</VBtn>
+    <LogoutBtn v-if="authenticated" @click="logout" />
   </VToolbar>
 </template>
