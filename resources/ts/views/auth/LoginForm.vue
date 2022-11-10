@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthUserStore } from '@/plugins/stores/auth-user'
+import { useAuth } from '@/composition/auth'
 import { reactive, ref } from 'vue'
 
 const valid = ref(true)
@@ -23,7 +23,7 @@ const inputs = reactive({
   remember: true,
 })
 
-const { login } = useAuthUserStore()
+const { login } = useAuth()
 
 const execLogin = async () => {
   const payload = {

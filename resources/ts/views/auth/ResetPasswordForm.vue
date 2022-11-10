@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useAuthUserStore } from '@/plugins/stores/auth-user'
+import { useAuth } from '@/composition/auth'
 import { reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { VForm } from 'vuetify/components'
 
 const route = useRoute()
-const { resetPassword } = useAuthUserStore()
+const { resetPassword } = useAuth()
 
 const valid = ref(true)
 

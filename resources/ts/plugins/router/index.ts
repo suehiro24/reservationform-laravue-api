@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import { useAuthUserStore } from '@/plugins/stores/auth-user'
 import { routes as authRoutes } from '@/plugins/router/routes/auth'
+import { useAuth } from '@/composition/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +22,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const { authenticated, fetchUser } = useAuthUserStore()
+  const { authenticated, fetchUser } = useAuth()
   const isAuthRequiredPath = to.matched.some(record => record.meta.requireAuth)
 
   if (isAuthRequiredPath && !authenticated.value) {
