@@ -8,8 +8,11 @@ import {
   type RegisterPayload,
   type ResetPassPayload,
 } from '@/lib/api/auth-service'
+import { useFlashMsgStore } from './flash-message-store'
 
 export const useAuthUserStore = defineStore('auth-user', () => {
+  const { pushSuccessMessage, pushErrorMessage } = useFlashMsgStore()
+
   //-------------
   // states
   //-------------
@@ -40,21 +43,11 @@ export const useAuthUserStore = defineStore('auth-user', () => {
   const register = async (payload: RegisterPayload) => {
     return AuthService.register(payload)
       .then(() => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushSuccessMessage', 'ユーザ登録が成功しました。', {
-        //   root: true,
-        // })
-        console.log('Registration Success')
+        pushSuccessMessage('ユーザ登録が成功しました。')
         return { success: true }
       })
       .catch(e => {
-        // TODO: Flash message instead of console log
-        // dispatch(
-        //   'flashMsg/pushErrorMessage',
-        //   'ユーザ登録が失敗しました。もう一度お試しください。',
-        //   { root: true }
-        // )
-        console.error('Registration Failure')
+        pushErrorMessage('ユーザ登録が失敗しました。もう一度お試しください。')
         return { success: false }
       })
   }
@@ -70,9 +63,7 @@ export const useAuthUserStore = defineStore('auth-user', () => {
         }
 
         if (!authUser.email_verified_at) {
-          // TODO: Flash message instead of error log
-          // dispatch('flashMsg/pushErrorMessage', 'メール認証が行われていないためログインできません。', { root: true })
-          console.error('Email has not been verified')
+          pushErrorMessage('メール認証が行われていないためログインできません。')
           return null
         }
 
@@ -80,10 +71,8 @@ export const useAuthUserStore = defineStore('auth-user', () => {
         return authUser
       })
       .catch(e => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushErrorMessage', 'ログインが失敗しました。もう一度お試しください。', { root: true })
-        console.error('Login Failure', e)
         clearUser()
+        pushErrorMessage('ログインが失敗しました。もう一度お試しください。')
         return null
       })
   }
@@ -91,14 +80,12 @@ export const useAuthUserStore = defineStore('auth-user', () => {
   const logout = () => {
     return AuthService.logout()
       .then(() => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushSuccessMessage', 'パスワードリセット用メールを送信しました。', { root: true })
-        console.log('Logout succeed')
         clearUser()
+        pushSuccessMessage('ログアウトしました。')
         return { success: true }
       })
       .catch(e => {
-        console.log('Logout failure', e)
+        pushErrorMessage('ログアウトが失敗しました。もう一度お試しください。')
         return { success: false }
       })
   }
@@ -106,15 +93,13 @@ export const useAuthUserStore = defineStore('auth-user', () => {
   const forgotPassword = (payload: ForgotPassPayload) => {
     return AuthService.forgotPassword(payload)
       .then(() => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushSuccessMessage', 'パスワードリセット用メールを送信しました。', { root: true })
-        console.log('Reset password email has been successfully sent')
+        pushSuccessMessage('パスワードリセット用メールを送信しました。')
         return { success: true }
       })
       .catch(e => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushErrorMessage', 'パスワードリセット用メールの送信が失敗しました。もう一度お試しください。', { root: true })
-        console.error('Failed to send email to reset password')
+        pushErrorMessage(
+          'パスワードリセット用メールの送信が失敗しました。もう一度お試しください。'
+        )
         return { success: false }
       })
   }
@@ -122,19 +107,13 @@ export const useAuthUserStore = defineStore('auth-user', () => {
   const resetPassword = async (payload: ResetPassPayload) => {
     return AuthService.resetPassword(payload)
       .then(async () => {
-        // TODO: Flash message instead of console log
-        // dispatch('flashMsg/pushSuccessMessage', 'パスワードのリセットが成功しました。', { root: true })
-        console.log('Reset password Success')
+        pushSuccessMessage('パスワードのリセットが成功しました。')
         return { success: true }
       })
       .catch(e => {
-        // TODO: Flash message instead of console log
-        // dispatch(
-        //   'flashMsg/pushErrorMessage',
-        //   'パスワードのリセットが失敗しました。もう一度お試しください。',
-        //   { root: true }
-        // )
-        console.error('Reset password Failure', e)
+        pushErrorMessage(
+          'パスワードのリセットが失敗しました。もう一度お試しください。'
+        )
         return { success: false }
       })
   }

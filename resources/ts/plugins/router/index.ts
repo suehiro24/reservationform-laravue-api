@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import { routes as authRoutes } from '@/plugins/router/routes/auth'
 import { useAuth } from '@/composition/auth'
+import { useFlashMsgStore } from '../stores/flash-message-store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,17 +24,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const { authenticated, fetchUser } = useAuth()
+  const { pushErrorMessage } = useFlashMsgStore()
   const isAuthRequiredPath = to.matched.some(record => record.meta.requireAuth)
 
   if (isAuthRequiredPath && !authenticated.value) {
     const userReloaded = await fetchUser()
 
     if (!userReloaded) {
-      // TODO: Implement store for messaging
-      // store.dispatch(
-      //   'flashMsg/pushErrorMessage',
-      //   'ログインが必要なページの表示をキャンセルしました'
-      // )
+      pushErrorMessage('ログインが必要なページの表示をキャンセルしました')
 
       // Redirect
       next({
