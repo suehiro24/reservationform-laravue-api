@@ -1,31 +1,22 @@
 <script setup lang="ts">
 import { useAuth } from '@/composition/auth'
-import { reactive, ref } from 'vue'
-
-const valid = ref(true)
-
-const inputs = reactive({
-  email: {
-    value: '',
-    label: 'メールアドレス',
-    rules: [
-      (v: string) => !!v || 'メールアドレスを入力してください',
-      (v: string) =>
-        /.+@.+\..+/.test(v) || '有効なメールアドレスを入力してください',
-    ],
-  },
-  password: {
-    value: '',
-    counter: 15,
-    label: 'パスワード',
-    rules: [(v: string) => !!v || 'パスワードを入力してください'],
-  },
-  remember: true,
-})
+import { useAuthFormInputs } from '@/composition/authFormInputs'
+import { ref } from 'vue'
+import type { VForm } from 'vuetify/components'
 
 const { login } = useAuth()
+const { valid, inputs } = useAuthFormInputs()
+
+const form = ref<VForm | null>(null)
+
+const validate = async () => {
+  return await form.value?.validate()
+}
 
 const execLogin = async () => {
+  const result = await validate()
+  if (!result?.valid) return
+
   const payload = {
     email: inputs.email.value,
     password: inputs.password.value,
